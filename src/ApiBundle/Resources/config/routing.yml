@@ -1,0 +1,4 @@
+# api/product
+api.product:
+    path:     /product
+    defaults: { _controller: ApiBundle:Product:list }

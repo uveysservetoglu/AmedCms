@@ -1,0 +1,16 @@
+# api/product
+panel.giris:
+    path:     /giris
+    defaults: { _controller: PanelBundle:Auth:giris }
+
+panel.login.control:
+    path:     /giris/control
+    defaults: { _controller: PanelBundle:Auth:control}
+
+panel.mod_user:
+    path:     /mod_user
+    defaults: { _controller: PanelBundle:ModUser:list}
+
+panel.merhaba:
+    path: /merhaba
+    defaults: {_controller: PanelBundle:Default:merhaba}

@@ -1,0 +1,11 @@
+panel:
+    resource: "@PanelBundle/Resources/config/routing.yml"
+    prefix:   /panel/
+
+api:
+    resource: "@ApiBundle/Resources/config/routing.yml"
+    prefix:   /api
+#    schemes: [https]
+app:
+    resource: "@AppBundle/Controller/"
+    prefix:   /{_locale}/

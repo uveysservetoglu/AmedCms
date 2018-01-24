@@ -1,0 +1,21 @@
+<div class="boxLogin">
+    <form id="" action="/panel/giris/control" class="" style="margin-bottom: 0px !important;" method="post" novalidate="novalidate">
+        <div class="">
+            <input type="text" class="form-control" id="username" placeholder="Kullanıcı Adı" name="username">
+            <input type="hidden" id="xss" name="xss" value='{% if var.xss is defined %}{{ var.xss }}{% endif %}'>
+        </div>
+        <div class="">
+            <input type="password" class="form-control" id="password" placeholder="Şifre" name="password">
+        </div>
+        <div class="">
+            <input type="submit" class="submit" id="submit" placeholder="submit" name="submit">
+            <input type="reset" class="submit" >
+            <div class="clear"></div>
+        </div>
+        {% if var.message is defined %}
+            <div class="error">
+                {{ var.message }}
+            </div>
+        {% endif %}
+    </form>
+</div>
