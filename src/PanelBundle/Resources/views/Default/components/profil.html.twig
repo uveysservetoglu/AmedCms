@@ -1,0 +1,11 @@
+<!-- menu profile quick info -->
+<div class="profile clearfix">
+    <div class="profile_pic">
+        <img src="/site/modUser/{{ app.session.get('authentication_data').username }}/{{ app.session.get('authentication_data').image }}" alt="..." class="img-circle profile_img">
+    </div>
+    <div class="profile_info">
+        <span>Welcome,</span>
+        <h2>{{  app.session.get('authentication_data').name_surname }}</h2>
+    </div>
+</div>
+<!-- /menu profile quick info -->

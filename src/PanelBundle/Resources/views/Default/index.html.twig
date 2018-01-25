@@ -1,4 +1,12 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-{% include var.page %}
+    <div class="container body">
+        <div class="main_container">
+            {% include 'PanelBundle:Default/components:navigation.html.twig' %}
+            {% include 'PanelBundle:Default/components:topNavigation.html.twig' %}
+            {% include var.page %}
+            {% include 'PanelBundle:Default/components:footer.html.twig' %}
+        </div>
+    </div>
+    {{ var.js|raw }}
 {% endblock %}

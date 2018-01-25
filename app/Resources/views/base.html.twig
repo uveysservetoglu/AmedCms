@@ -5,9 +5,10 @@
         <title>{% block title %}{{var.title}}{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-        <link rel="stylesheet" href="{{ asset(var.css) }}">
+        {{ var.css|raw }}
+        <link rel="stylesheet" href="">
     </head>
-    <body>
+    <body class="nav-md">
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
     </body>

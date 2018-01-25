@@ -1,0 +1,26 @@
+{
+  "name": "User Control",
+  "icon": "fa fa-user",
+  "menu": [
+    {
+      "href": "mod_user/user_list",
+      "name": "User Lists"
+    },
+    {
+      "href": "mod_user/user_list",
+      "name": "User Lists"
+    },
+    {
+      "href": "mod_user/member_setting",
+      "name": "Member Setting"
+    },
+    {
+      "href": "mod_user/user_group",
+      "name": "User Group"
+    },
+    {
+      "href": "mod_user/user_roll",
+      "name": "User Roll"
+    }
+  ]
+}

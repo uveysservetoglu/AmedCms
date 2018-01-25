@@ -12,16 +12,18 @@ class AuthController extends BaseController
     /**
      * @Route("/panel/giris")
      */
-    public function girisAction(Request $request=null)
+    public function loginAction(Request $request=null)
     {
         if($this->get('panel.user')->ifLogin()){
-            return new RedirectResponse($this->generateUrl('panel.mod_user'));
+            $this->init('dashboard');
+            return new RedirectResponse($this->generateUrl('panel.dashboard'));
         }
-        $this->init('giris');
+
+        $this->init('login');
         $this->httpRequest = $request;
         $xss = $this->generateXssCode();
         $this->var['xss'] = $xss;
-        return $this->render('PanelBundle:Default:index.html.twig', ['var' => $this->var]);
+        return $this->render('@Panel/Default/login.html.twig', ['var' => $this->var]);
     }
     /**
      * @Route("/panel/giris/control")
@@ -47,11 +49,15 @@ class AuthController extends BaseController
                         'username'      => $user[0]['username'],
                         'email'         => $user[0]['email'],
                         'name_surname'  => $user[0]['nameSurname'],
-                        'status'        => $user[0]['status']
+                        'status'        => $user[0]['status'],
+                        'address'       => $user[0]['address'],
+                        'job'           => $user[0]['job'],
+                        'website'       => $user[0]['website'],
+                        'image'         => $user[0]['image']
                     );
                     $this->session->set('authentication_data', $member_details);
-                    $this->var['message']='success';
-                    return new RedirectResponse($this->generateUrl('panel.mod_user'));
+                    $this->var['user']=$member_details;
+                    return new RedirectResponse($this->generateUrl('panel.dashboard'));
                 }else{
                     $this->var['message']=$auth;
                 }
@@ -61,9 +67,8 @@ class AuthController extends BaseController
         }else{
             $this->var['message'] = 'error.xss';
         }
-        return $this->render('PanelBundle:Default:index.html.twig', ['var' => $this->var]);
+        return $this->render('PanelBundle:Default:login.html.twig', ['var' => $this->var]);
     }
-
     private function processLogin($username,$password){
         if(($username != null or !empty($username)) and ($username != null or !empty($username))){
             /** @var mod_userRepository $repo */
@@ -124,5 +129,21 @@ class AuthController extends BaseController
             return true;
         }
         return false;
+    }
+
+    /**@Route("/panel/dashboard")**/
+    public function dashboardAction(){
+        if(!$this->get('panel.user')->ifLogin()){
+            $this->init('login');
+            return $this->render('PanelBundle:Default:login.html.twig', ['var' => $this->var['message']='error.session']);
+        }
+
+        $this->init('dashboard');
+        $this->var['title']='User Profile';
+        return $this->render('PanelBundle:Default:index.html.twig', ['var' => $this->var]);
+    }
+    public function logoutAction(){
+        $this->session->clear();
+        return new RedirectResponse($this->generateUrl('panel.login'));
     }
 }

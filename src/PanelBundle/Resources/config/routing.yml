@@ -1,16 +1,22 @@
-# api/product
-panel.giris:
-    path:     /giris
-    defaults: { _controller: PanelBundle:Auth:giris }
+panel.login:
+    path:     /login
+    defaults: { _controller: PanelBundle:Auth:login }
+
+panel.logout:
+    path:     /logout
+    defaults: { _controller: PanelBundle:Auth:logout }
 
 panel.login.control:
     path:     /giris/control
     defaults: { _controller: PanelBundle:Auth:control}
 
+panel.dashboard:
+    path:   /dashboard
+    defaults: {_controller: PanelBundle:Auth:dashboard}
+
+#/mod_user/user_list
 panel.mod_user:
     path:     /mod_user
     defaults: { _controller: PanelBundle:ModUser:list}
 
-panel.merhaba:
-    path: /merhaba
-    defaults: {_controller: PanelBundle:Default:merhaba}
+
