@@ -1,0 +1,26 @@
+.boxLogin{
+    height: 220px;
+    margin: 0 auto;
+    float: none;
+    background: #ebebeb;
+    border: 2px solid lightblue;
+    margin-top: 250px;
+}
+.logo{
+    margin: 10px;
+}
+.logo img{
+    margin-top: 5px;
+    width: 70px;
+    height: 70px;
+    float: left;
+}
+.logo h3{
+    margin-left: 15px;
+    margin-top: 20px;
+    float: left;
+    text-transform: uppercase;
+}
+.buttoLogin{
+    margin-top: 15px;
+}

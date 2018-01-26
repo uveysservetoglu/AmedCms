@@ -1,21 +1,29 @@
-<div class="boxLogin">
-    <form id="" action="/panel/giris/control" class="" style="margin-bottom: 0px !important;" method="post" novalidate="novalidate">
-        <div class="">
-            <input type="text" class="form-control" id="username" placeholder="Kullanıcı Adı" name="username">
-            <input type="hidden" id="xss" name="xss" value='{% if var.xss is defined %}{{ var.xss }}{% endif %}'>
+{% extends 'base.html.twig' %}
+{% block body %}
+
+    <div class="boxLogin col-md-3">
+        <div class="logo">
+            <img src="/theme/panel/images/logo-site.svg" alt="site-logo">
+            <h3>Biber Login</h3>
         </div>
-        <div class="">
-            <input type="password" class="form-control" id="password" placeholder="Şifre" name="password">
-        </div>
-        <div class="">
-            <input type="submit" class="submit" id="submit" placeholder="submit" name="submit">
-            <input type="reset" class="submit" >
-            <div class="clear"></div>
-        </div>
-        {% if var.message is defined %}
-            <div class="error">
-                {{ var.message }}
+        <form id="" action="/panel/giris/control" class="" style="margin-bottom: 0px !important;" method="post" novalidate="novalidate">
+            <div class="">
+                <input type="text" class="form-control" id="username" placeholder="Kullanıcı Adı" name="username">
+                <input type="hidden" id="xss" name="xss" value='{% if var.xss is defined %}{{ var.xss }}{% endif %}'>
             </div>
-        {% endif %}
-    </form>
-</div>
+            <div class="">
+                <input type="password" class="form-control" id="password" placeholder="Şifre" name="password">
+            </div>
+            <div class="buttoLogin col-md-6 col-sm-6">
+                <input type="submit" class=" btn btn-success" id="submit" placeholder="submit" name="submit">
+                <input type="reset" class=" btn btn-warning" >
+                <div class="clear"></div>
+            </div>
+            {% if var.message is defined %}
+                <div class="error col-md-4 col-sm-4 alert">
+                    {{ var.message }}
+                </div>
+            {% endif %}
+        </form>
+    </div>
+{% endblock %}

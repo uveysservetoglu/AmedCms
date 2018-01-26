@@ -44,6 +44,7 @@ class BaseController extends Controller
         $this->var['css'][]   = "/theme/panel/jqvmap/dist/jqvmap.min.css"  ;
         $this->var['css'][]   = "/theme/panel/bootstrap-daterangepicker/daterangepicker.css" ;
         $this->var['css'][]   = "/theme/panel/build/css/custom.min.css";
+        $this->var['css'][]   = "/theme/panel/style.css";
 
         /** JS Include **/
         $this->var['js'][]    = "/theme/panel/jquery/dist/jquery.min.js" ;
