@@ -1,0 +1,63 @@
+<script type="text/javascript">
+    var height_flexi = $('.right_col').height();
+
+    $("#flex1").flexigrid
+    (
+        {
+            url: '/api/mod_user/list',
+            dataType: 'json',
+            colModel : [
+                {display: 'ID', name : 'id', width : 40, sortable : true, align: 'center'},
+                {display: 'Name Surname', name : 'nameSurname', width : 180, sortable : true, align: 'left'},
+                {display: 'Email', name : 'email', width : 120, sortable : true, align: 'left'},
+                {display: 'Status', name : 'status', width : 60, sortable : true, align: 'left'},
+                {display: 'Username', name : 'username', width : 130, sortable : true, align: 'left'}
+            ],
+            buttons : [
+                {name: 'Add', bclass: 'add', onpress : test},
+                {name: 'Edit', bclass: 'edit', onpress : test},
+                {name: 'Delete', bclass: 'delete', onpress : test},
+                {name: 'Publis', bclass: 'add', onpress : test},
+                {name: 'Unpublish', bclass: 'delete', onpress : test},
+                {separator: true}
+            ],
+            searchitems : [
+                {display: 'ID', name : 'id'},
+                {display: 'Name Surname', name : 'nameSurname', isdefault: true},
+                {display: 'Username', name : 'username', isdefault: true}
+            ],
+            sortname: "id",
+            sortorder: "desc",
+            usepager: true,
+            title: '{{ var.title }}',
+            useRp: true,
+            rp: 10,
+            showTableToggleBtn: true,
+            width: '100%',
+            height: 265
+        }
+    );
+
+    function test(com,grid)
+    {
+
+        if (com == 'Edit'){
+            $(".bs-example-modal-lg").modal();
+            if ($('.trSelected',grid).length !=1){
+                $(".bs-example-modal-lg").modal();
+            }else{
+
+            }
+        }
+        if (com=='Delete')
+        {
+            confirm('Delete ' + $('.trSelected',grid).length + ' items?')
+        }
+        else if (com=='Add')
+        {
+            alert('Add New Item'+height_flexi);
+        }
+    }
+
+
+</script>

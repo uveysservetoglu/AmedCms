@@ -1,4 +1,5 @@
 services:
-#    api.example:
-#        class: ApiBundle\Example
-#        arguments: ["@service_id", "plain_value", "%parameter%"]
+    panel.flexi:
+        class: ApiBundle\Service\FlexiServices
+        arguments: ['@service_container']
+        public: true

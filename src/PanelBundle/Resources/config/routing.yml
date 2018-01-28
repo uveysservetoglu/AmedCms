@@ -1,3 +1,7 @@
+panel:
+    path:     /
+    defaults: { _controller: PanelBundle:Auth:login }
+
 panel.login:
     path:     /login
     defaults: { _controller: PanelBundle:Auth:login }
@@ -16,7 +20,7 @@ panel.dashboard:
 
 #/mod_user/user_list
 panel.mod_user:
-    path:     /mod_user
+    path:     /mod_user/user_list
     defaults: { _controller: PanelBundle:ModUser:list}
 
 

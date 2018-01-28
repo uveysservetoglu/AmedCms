@@ -18,7 +18,9 @@ class ModUserController extends BaseController
            $this->init('login');
            return $this->render('PanelBundle:Default:login.html.twig', ['var' => $this->var['message']='error.session']);
        }
-       $this->init('ModUser');
+       $this->init( 'user_list','/ModUser');
+
+       $this->var['title']='User Profile';
        return $this->render('PanelBundle:Default:index.html.twig', ['var' => $this->var]);
    }
 }

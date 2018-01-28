@@ -3,6 +3,7 @@
 namespace PanelBundle\Controller;
 
 
+use ApiBundle\Repository\modsRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -41,8 +42,8 @@ class AuthController extends BaseController
                 $auth=$this->processLogin($username,$password);
                 if($auth == 'success.session')
                 {
-                    /** @var ModUserAuthRepository $userRepo */
-                    $repo    =  $this->getDoctrine()->getRepository('PanelBundle:ModUser');
+                    /** @var \ApiBundle\Repository\ModUserAuthRepository $userRepo */
+                    $repo    =  $this->getDoctrine()->getRepository('ApiBundle:ModUser');
                     $user = $repo->getUser($username);
                     $member_details = array(
                         'id'            => $user[0]['id'],
@@ -71,9 +72,9 @@ class AuthController extends BaseController
     }
     private function processLogin($username,$password){
         if(($username != null or !empty($username)) and ($username != null or !empty($username))){
-            /** @var mod_userRepository $repo */
+            /** @var modsRepository $repo */
             $this->model       = new  \stdClass();
-            $this->model->user = $this->getDoctrine()->getRepository('PanelBundle:ModUser');
+            $this->model->user = $this->getDoctrine()->getRepository('ApiBundle:ModUser');
             $repo       =   $this->model->user;
             $response   =   $repo->getUser($username);
             $msg=null;
@@ -143,7 +144,7 @@ class AuthController extends BaseController
         return $this->render('PanelBundle:Default:index.html.twig', ['var' => $this->var]);
     }
     public function logoutAction(){
-        $this->session->clear();
+        $this->session->clear('authentication_data');
         return new RedirectResponse($this->generateUrl('panel.login'));
     }
 }

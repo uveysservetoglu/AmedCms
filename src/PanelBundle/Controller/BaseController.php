@@ -21,55 +21,54 @@ class BaseController extends Controller
     public $var;
     public $em;
     public $userService;
+    public $currentPage;
+    public $currentDirectory;
     public $httpRequest = null;
 
     public function __construct(){
         $this->session = new Session();
         $this->var['title'] = 'Biber İçerik Yönetim Sistemi';
         //$this->var['css']="/theme/panel/bootstrap/dist/css/bootstrap.min.css" ;
-        $this->generateCssAndJs();
         $this->panelMenu();
     }
-    public function init($page=null){
-        $this->var['page']='PanelBundle:Default:'.$page.'.html.twig';
+    public function init($page=null,$directory = null){
+        $this->currentPage = $page;
+        $this->currentDirectory = $directory;
+        $this->generateCssAndJs();
+
+        $this->var['page'] ='@Panel/Default'.$directory.'/'.$page.'.html.twig';
+        //$this->var['page']='PanelBundle:Default:'.$page.'.html.twig';
     }
     private function generateCssAndJs(){
+
 
         /** JS Include **/
         $this->var['css'][]   = "/theme/panel/bootstrap/dist/css/bootstrap.min.css" ;
         $this->var['css'][]   = "/theme/panel/font-awesome/css/font-awesome.min.css";
-        $this->var['css'][]   = "/theme/panel/nprogress/nprogress.css"  ;
-        $this->var['css'][]   = "/theme/panel/iCheck/skins/flat/green.css" ;
-        $this->var['css'][]   = "/theme/panel/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css"  ;
-        $this->var['css'][]   = "/theme/panel/jqvmap/dist/jqvmap.min.css"  ;
-        $this->var['css'][]   = "/theme/panel/bootstrap-daterangepicker/daterangepicker.css" ;
         $this->var['css'][]   = "/theme/panel/build/css/custom.min.css";
         $this->var['css'][]   = "/theme/panel/style.css";
 
         /** JS Include **/
         $this->var['js'][]    = "/theme/panel/jquery/dist/jquery.min.js" ;
         $this->var['js'][]    = "/theme/panel/bootstrap/dist/js/bootstrap.min.js";
-        $this->var['js'][]    = "/theme/panel/fastclick/lib/fastclick.js";
-        $this->var['js'][]    = "/theme/panel/nprogress/nprogress.js";
-        $this->var['js'][]    = "/theme/panel/Chart.js/dist/Chart.min.js";
-        $this->var['js'][]    = "/theme/panel/gauge.js/dist/gauge.min.js";
-        $this->var['js'][]    = "/theme/panel/bootstrap-progressbar/bootstrap-progressbar.min.js";
-        $this->var['js'][]    = "/theme/panel/iCheck/icheck.min.js";
-        $this->var['js'][]    = "/theme/panel/skycons/skycons.js";
-        $this->var['js'][]    = "/theme/panel/Flot/jquery.flot.js";
-        $this->var['js'][]    = "/theme/panel/Flot/jquery.flot.pie.js";
-        $this->var['js'][]    = "/theme/panel/Flot/jquery.flot.time.js";
-        $this->var['js'][]    = "/theme/panel/Flot/jquery.flot.stack.js";
-        $this->var['js'][]    = "/theme/panel/Flot/jquery.flot.resize.js";
-        $this->var['js'][]    = "/theme/panel/flot.orderbars/js/jquery.flot.orderBars.js";
-        $this->var['js'][]    = "/theme/panel/flot-spline/js/jquery.flot.spline.min.js";
-        $this->var['js'][]    = "/theme/panel/flot.curvedlines/curvedLines.js";
-        $this->var['js'][]    = "/theme/panel/DateJS/build/date.js";
-        $this->var['js'][]    = "/theme/panel/jqvmap/dist/maps/jquery.vmap.world.js";
-        $this->var['js'][]    = "/theme/panel/jqvmap/examples/js/jquery.vmap.sampledata.js";
-        $this->var['js'][]    = "/theme/panel/moment/min/moment.min.js";
-        $this->var['js'][]    = "/theme/panel/bootstrap-daterangepicker/daterangepicker.js";
+        switch ($this->currentPage){
+            case 'user_list':
+                /*
+                $this->var['js'][]    = "/theme/panel/datatables.net/js/jquery.dataTables.min.js" ;
+                $this->var['js'][]    = "/theme/panel/datatables.net-bs/js/dataTables.bootstrap.min.js" ;
+                $this->var['js'][]    = "/theme/panel/datatables.net-buttons/js/dataTables.buttons.min.js" ;
+                $this->var['js'][]    = "/theme/panel/datatables.net-buttons-bs/js/buttons.bootstrap.min.js" ;
+                $this->var['js'][]    = "/theme/panel/datatables.net-buttons/js/buttons.flash.min.js" ;
+                $this->var['js'][]    = "/theme/panel/datatables.net-buttons/js/buttons.html5.min.js" ;
+                $this->var['js'][]    = "/theme/panel/datatables.net-buttons/js/buttons.print.min.js" ;
+                */
+                $this->var['css'][]    = "/theme/panel/flexigrid/css/flexigrid/flexigrid.css" ;
+                $this->var['js'][]    = "/theme/panel/flexigrid/flexigrid.js" ;
+
+                break;
+        }
         $this->var['js'][]    = "/theme/panel/build/js/custom.min.js";
+
         $this->scriptSrc($this->var['js']);
         $this->linkStyleSheet($this->var['css']);
     }
@@ -116,11 +115,5 @@ class BaseController extends Controller
             );
 
         $this->var['menu'] = $menu;
-    }
-
-    public function ifLoginBase(){
-        if($this->get('panel.user')->ifLogin() == false){
-            return new RedirectResponse($this->generateUrl('panel.login'));
-        }
     }
 }

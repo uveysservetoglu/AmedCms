@@ -1,4 +1,8 @@
-# api/product
-api.product:
-    path:     /product
-    defaults: { _controller: ApiBundle:Product:list }
+# api/mod_user
+api.mod_user:
+    path:     /mod_user/list
+    defaults: { _controller: ApiBundle:ModUser:list }
+
+api:
+    path:    /
+    defaults: {_controller: ApiBunde:Defult:index }
