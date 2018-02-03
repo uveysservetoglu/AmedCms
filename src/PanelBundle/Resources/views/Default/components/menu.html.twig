@@ -7,7 +7,7 @@
         <li><a><i class="{{ nav.icon }}"></i> {{ nav.name }}<span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
                 {% for navMenu in nav.item %}
-                <li><a href="{{ navMenu.href }}">{{ navMenu.name }}</a></li>
+                <li><a href="/{{ var.locale }}/{{ navMenu.href }}">{{ navMenu.name }}</a></li>
                 {% endfor %}
             </ul>
         </li>

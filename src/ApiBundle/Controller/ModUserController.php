@@ -29,13 +29,11 @@ class ModUserController extends Controller
         /** @var ModUser $userRepo */
         $repo = $this -> getDoctrine()
                       -> getRepository('ApiBundle:ModUser');
-
         $data = array(
             'userList' => $repo->getUserList($param),
             'page'     => $param['page'],
             'total'    => count($repo->findAll())
         );
-
         return new JsonResponse(
             $this->get('panel.flexi')->jsonUser($data)
         );

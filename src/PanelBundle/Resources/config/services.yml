@@ -7,3 +7,8 @@ services:
         class: PanelBundle\Service\UserServices
         arguments: ['@service_container']
         public: true
+
+    panel.lang:
+            class: PanelBundle\Service\MultiLangServices
+            arguments: ['@service_container']
+            public: true

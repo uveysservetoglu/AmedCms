@@ -4,27 +4,29 @@
     $("#flex1").flexigrid
     (
         {
-            url: '/api/mod_user/list',
-            dataType: 'json',
+            url: '/{{ var.locale }}/api/mod_user/list',
+            dataType : 'json',
+            pagesText: '{{ var.lang.grid.35 }}',
+            pagestat :  '{{ var.lang.grid.1 }}',
             colModel : [
                 {display: 'ID', name : 'id', width : 40, sortable : true, align: 'center'},
-                {display: 'Name Surname', name : 'nameSurname', width : 180, sortable : true, align: 'left'},
-                {display: 'Email', name : 'email', width : 120, sortable : true, align: 'left'},
-                {display: 'Status', name : 'status', width : 60, sortable : true, align: 'left'},
-                {display: 'Username', name : 'username', width : 130, sortable : true, align: 'left'}
+                {display: '{{ var.lang.grid.35 }}', name : 'nameSurname', width : 180, sortable : true, align: 'left'},
+                {display: '{{ var.lang.grid.9 }}', name : 'email', width : 120, sortable : true, align: 'left'},
+                {display: '{{ var.lang.grid.34 }}', name : 'status', width : 90, sortable : true, align: 'center'},
+                {display: '{{ var.lang.grid.8 }}', name : 'username', width : 130, sortable : true, align: 'left'}
             ],
             buttons : [
-                {name: 'Add', bclass: 'add', onpress : test},
-                {name: 'Edit', bclass: 'edit', onpress : test},
-                {name: 'Delete', bclass: 'delete', onpress : test},
-                {name: 'Publis', bclass: 'add', onpress : test},
-                {name: 'Unpublish', bclass: 'delete', onpress : test},
+                {name: '{{ var.lang.grid.10 }}', bclass: 'add', onpress : test},
+                {name: '{{ var.lang.grid.11 }}', bclass: 'edit', onpress : test},
+                {name: '{{ var.lang.grid.13 }}', bclass: 'delete', onpress : test},
+                {name: '{{ var.lang.grid.23 }}', bclass: 'add', onpress : test},
+                {name: '{{ var.lang.grid.24 }}', bclass: 'delete', onpress : test},
                 {separator: true}
             ],
             searchitems : [
                 {display: 'ID', name : 'id'},
-                {display: 'Name Surname', name : 'nameSurname', isdefault: true},
-                {display: 'Username', name : 'username', isdefault: true}
+                {display: '{{ var.lang.grid.35}}', name : 'nameSurname', isdefault: true},
+                {display: '{{ var.lang.grid.8 }}', name : 'username', isdefault: true}
             ],
             sortname: "id",
             sortorder: "desc",
@@ -40,24 +42,61 @@
 
     function test(com,grid)
     {
-
-        if (com == 'Edit'){
-            $(".bs-example-modal-lg").modal();
-            if ($('.trSelected',grid).length !=1){
-                $(".bs-example-modal-lg").modal();
-            }else{
-
-            }
+        /** Edit If**/
+        if (com=='{{ var.lang.grid.10 }}')/** Add If**/
+        {
+            $(".insertModal").modal();
         }
-        if (com=='Delete')
+        else if (com == '{{ var.lang.grid.11 }}') {
+
+            if ($('.trSelected', grid).length == 1) {
+                console.log($('.trSelected', grid).length);
+                $('.trSelected:first',grid).attr('id').replace(/row/i,'')
+                toastr["error"]($('.trSelected:first',grid).attr('id').replace(/row/i,''))
+                $(".editModal").modal();
+            }else{
+                toastr["error"]("{{ var.lang.grid.15 }}")
+            }
+        }else if (com=='{{ var.lang.grid.13 }}')/** Delete If**/
         {
             confirm('Delete ' + $('.trSelected',grid).length + ' items?')
         }
-        else if (com=='Add')
-        {
-            alert('Add New Item'+height_flexi);
-        }
+
     }
+    $(function () {
+        Dropzone.options.userDropzone = {
+            paramName: "file", // The name that will be used to transfer the file
+            maxFilesize: 5, // MB
+            maxFiles:1,
+            previewTemplate: null,
+            accept: function(file, done) {
+                console.log('aaa');
 
+                if (file.name == "slide-1.jpg") {
+                    console.log('aaa');
 
+                    done("Naha, you don't.");
+                }
+                else { done(); }
+            }
+        };
+    });
+
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
 </script>

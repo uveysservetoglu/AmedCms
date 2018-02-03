@@ -13,13 +13,15 @@ class ModUserController extends BaseController
     /**
      * @Route("/panel/mod_user")
      */
-   public function listAction(){
+   public function listAction(Request $request){
+
        if(!$this->get('panel.user')->ifLogin()){
            $this->init('login');
-           return $this->render('PanelBundle:Default:login.html.twig', ['var' => $this->var['message']='error.session']);
+           return new RedirectResponse($this->generateUrl('panel.login'));
        }
-       $this->init( 'user_list','/ModUser');
+       $this->var['locale']=$request->getLocale();
 
+       $this->init( 'userList','ModUser');
        $this->var['title']='User Profile';
        return $this->render('PanelBundle:Default:index.html.twig', ['var' => $this->var]);
    }

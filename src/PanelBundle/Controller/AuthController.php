@@ -16,13 +16,13 @@ class AuthController extends BaseController
     public function loginAction(Request $request=null)
     {
         if($this->get('panel.user')->ifLogin()){
-            $this->init('dashboard');
+            $this->init('dashboard', 'ModUser');
             return new RedirectResponse($this->generateUrl('panel.dashboard'));
         }
-
-        $this->init('login');
+        $this->init('login','ModUser');
         $this->httpRequest = $request;
         $xss = $this->generateXssCode();
+        $this->var['title']='User Profile';
         $this->var['xss'] = $xss;
         return $this->render('@Panel/Default/login.html.twig', ['var' => $this->var]);
     }
@@ -30,7 +30,9 @@ class AuthController extends BaseController
      * @Route("/panel/giris/control")
      */
     public function controlAction(Request $request=null){
-        $this->init('giris');
+        $this->var['locale']=$request->getLocale();
+
+        $this->init('giris','ModUser');
         $username           = $request ->request->get('username');
         $password           = $request ->request->get('password');
         $xss                = $request ->request->get('xss');
@@ -134,8 +136,9 @@ class AuthController extends BaseController
 
     /**@Route("/panel/dashboard")**/
     public function dashboardAction(){
+
         if(!$this->get('panel.user')->ifLogin()){
-            $this->init('login');
+            $this->init('giris','ModUser');
             return $this->render('PanelBundle:Default:login.html.twig', ['var' => $this->var['message']='error.session']);
         }
 

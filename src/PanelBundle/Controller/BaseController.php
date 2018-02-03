@@ -8,10 +8,8 @@
 
 namespace PanelBundle\Controller;
 
-use PanelBundle\Service\UserServices;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 
 
 class BaseController extends Controller
@@ -28,20 +26,24 @@ class BaseController extends Controller
     public function __construct(){
         $this->session = new Session();
         $this->var['title'] = 'Biber İçerik Yönetim Sistemi';
-        //$this->var['css']="/theme/panel/bootstrap/dist/css/bootstrap.min.css" ;
-        $this->panelMenu();
     }
-    public function init($page=null,$directory = null){
+    public function init($page=null,$mod = null){
         $this->currentPage = $page;
-        $this->currentDirectory = $directory;
-        $this->generateCssAndJs();
+        $this->currentDirectory = $mod;
+        $this->var['locale'] = $this->get('translator')->getLocale();
+        $directory =null;
 
+        if($mod != null ){
+            $directory = '/'.$mod;
+            $mod = 'ModUser';
+        }
+        $lang = $this->get('panel.lang')->lang($mod);
+        $this->var['lang'] = $lang[$mod][$this->var['locale']];
+        $this->panelMenu();
+        $this->generateCssAndJs();
         $this->var['page'] ='@Panel/Default'.$directory.'/'.$page.'.html.twig';
-        //$this->var['page']='PanelBundle:Default:'.$page.'.html.twig';
     }
     private function generateCssAndJs(){
-
-
         /** JS Include **/
         $this->var['css'][]   = "/theme/panel/bootstrap/dist/css/bootstrap.min.css" ;
         $this->var['css'][]   = "/theme/panel/font-awesome/css/font-awesome.min.css";
@@ -51,20 +53,16 @@ class BaseController extends Controller
         /** JS Include **/
         $this->var['js'][]    = "/theme/panel/jquery/dist/jquery.min.js" ;
         $this->var['js'][]    = "/theme/panel/bootstrap/dist/js/bootstrap.min.js";
-        switch ($this->currentPage){
-            case 'user_list':
-                /*
-                $this->var['js'][]    = "/theme/panel/datatables.net/js/jquery.dataTables.min.js" ;
-                $this->var['js'][]    = "/theme/panel/datatables.net-bs/js/dataTables.bootstrap.min.js" ;
-                $this->var['js'][]    = "/theme/panel/datatables.net-buttons/js/dataTables.buttons.min.js" ;
-                $this->var['js'][]    = "/theme/panel/datatables.net-buttons-bs/js/buttons.bootstrap.min.js" ;
-                $this->var['js'][]    = "/theme/panel/datatables.net-buttons/js/buttons.flash.min.js" ;
-                $this->var['js'][]    = "/theme/panel/datatables.net-buttons/js/buttons.html5.min.js" ;
-                $this->var['js'][]    = "/theme/panel/datatables.net-buttons/js/buttons.print.min.js" ;
-                */
-                $this->var['css'][]    = "/theme/panel/flexigrid/css/flexigrid/flexigrid.css" ;
-                $this->var['js'][]    = "/theme/panel/flexigrid/flexigrid.js" ;
 
+        switch ($this->currentPage){
+            case 'userList':
+                $this->var['css'][]    = "/theme/panel/flexigrid/css/flexigrid/flexigrid.css" ;
+                $this->var['css'][]    = "/theme/panel/dropzone/dist/min/dropzone.min.css" ;
+                $this->var['css'][]    = "/theme/panel/toastr/toastr.min.css" ;
+
+                $this->var['js'][]    = "/theme/panel/flexigrid/flexigrid.js" ;
+                $this->var['js'][]    = "/theme/panel/dropzone/dist/min/dropzone.min.js" ;
+                $this->var['js'][]    = "/theme/panel/toastr/toastr.min.js" ;
                 break;
         }
         $this->var['js'][]    = "/theme/panel/build/js/custom.min.js";
@@ -86,7 +84,6 @@ class BaseController extends Controller
         }
         $this->var['js'] = $src;
     }
-
     private function panelMenu(){
         $menu =
             array(
@@ -94,11 +91,11 @@ class BaseController extends Controller
                     'name'  => 'User Control',
                     'icon'  => 'fa fa-user',
                     'item'  => array(
-                        0   => array('href'=>'mod_user/user_list','name'=>'User Lists'),
-                        1   => array('href'=>'mod_user/user_list','name'=>'User Lists'),
-                        2   => array('href'=>'mod_user/member_setting','name'=>'Member Setting'),
-                        3   => array('href'=>'mod_user/user_group','name'=>'User Group'),
-                        4   => array('href'=>'mod_user/user_roll','name'=>'User Roll')
+                        0   => array('href'=>'panel/mod_user/user_list','name'=>'User Lists'),
+                        1   => array('href'=>'panel/mod_user/user_list','name'=>'User Lists'),
+                        2   => array('href'=>'panel/mod_user/member_setting','name'=>'Member Setting'),
+                        3   => array('href'=>'panel/mod_user/user_group','name'=>'User Group'),
+                        4   => array('href'=>'panel/mod_user/user_roll','name'=>'User Roll')
                     )
                 ),
                 array(

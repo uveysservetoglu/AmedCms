@@ -8,6 +8,12 @@ services:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
 
+    app.locale:
+        class: 'ApiBundle\Service\LocaleService'
+        arguments: ["@kernel"]
+        tags:
+            - {name: kernel.event_listener , event: kernel.controller, priotry: 5000}
+
 
 imports:
     - { resource: "@PanelBundle/Resources/config/services.yml" }

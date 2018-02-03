@@ -11,7 +11,7 @@ panel.logout:
     defaults: { _controller: PanelBundle:Auth:logout }
 
 panel.login.control:
-    path:     /giris/control
+    path:     /login/control
     defaults: { _controller: PanelBundle:Auth:control}
 
 panel.dashboard:
