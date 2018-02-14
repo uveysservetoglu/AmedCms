@@ -10,6 +10,17 @@ namespace ApiBundle\Repository;
  */
 class ModUserAuthRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getAuth($param){
+       return $this -> getEntityManager()
+           ->getRepository('ApiBundle:ModUserAuth')
+           ->findOneBy(
+               [
+                'groupId' => $param['group'],
+                'rollId'  => $param['roll'],
+                'modId'   => $param['mod'],
+               ]
+           );
+    }
     public function getUserAuth($groupId){
         $dql = 'SELECT mua FROM ApiBundle:ModUserAuth mua WHERE mua.groupId = :group_id';
         return  $this -> getEntityManager()

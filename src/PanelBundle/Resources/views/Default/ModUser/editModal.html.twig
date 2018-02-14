@@ -1,4 +1,4 @@
-<div class="modal fade editModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade editModal" tabindex="-1" role="dialog" aria-hidden="true" id="insertModal">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -8,99 +8,62 @@
             </div>
             <div class="modal-body">
                 <div class="form-group col-md-12">
-                    <label class="control-label col-md-3 col-sm-3" for="firstName">First Name <span class="required">*</span>
+                    <label class="control-label col-md-3 col-sm-3" for="nameSurname">{{ var.lang.nameSurname }}<span class="required">*</span>
                     </label>
                     <div class="col-md-6 col-sm-6">
-                        <input type="text" id="firstName" name="firstName" required="required" class="form-control col-md-7 col-xs-12">
+                        <input type="text" id="nameSurname" name="nameSurname" required="required" class="form-control col-md-7 col-xs-12">
                     </div>
                 </div>
+
                 <div class="form-group col-md-12">
-                    <label class="control-label col-md-3 col-sm-3" for="lastName">Last Name <span class="required">*</span>
-                    </label>
+                    <label class="control-label col-md-3 col-sm-3" for="birthday">{{  var.lang.birthday  }}</label>
                     <div class="col-md-6 col-sm-6">
-                        <input type="text" id="lastName" name="lastName" required="required" class="form-control col-md-7 col-xs-12">
+                        <input type="date" id="birthday" required="required"  class="form-control col-md-7 col-xs-12">
                     </div>
                 </div>
                 <div class="form-group col-md-12">
-                    <label class="control-label col-md-3 col-sm-3" for="birthday">Birthday</label>
-                    <div class="col-md-6 col-sm-6">
-                        <input type="date" id="birthday" required="required" class="form-control col-md-7 col-xs-12">
-                    </div>
-                </div>
-                <div class="form-group col-md-12">
-                    <label class="control-label col-md-3 col-sm-3" for="mobil">Mobil</label>
+                    <label class="control-label col-md-3 col-sm-3" for="mobil">{{  var.lang.mobile_no  }}</label>
                     <div class="col-md-6 col-sm-6">
                         <input type="text" id="mobil"  class="form-control col-md-7 col-xs-12">
                     </div>
                 </div>
                 <div class="form-group col-md-12">
-                    <label class="control-label col-md-3 col-sm-3" for="email"> E-Mail <span class="required">*</span></label>
+                    <label class="control-label col-md-3 col-sm-3" for="email"> {{  var.lang.email  }}<span class="required">*</span></label>
                     <div class="col-md-6 col-sm-6">
                         <input type="text" id="email" required="required" class="form-control col-md-7 col-xs-12">
                     </div>
                 </div>
                 <div class="form-group col-md-12">
-                    <label class="control-label col-md-3 col-sm-3" for="address">Address</label>
+                    <label class="control-label col-md-3 col-sm-3" for="address">{{  var.lang.address  }}</label>
                     <div class="col-md-6 col-sm-6">
                         <input type="text" id="address" name="address" class="form-control col-md-7 col-xs-12">
                     </div>
                 </div>
                 <div class="form-group col-md-12">
-                    <label class="control-label col-md-3 col-sm-3" for="job">Job</label>
+                    <label class="control-label col-md-3 col-sm-3" for="job">{{  var.lang.job  }}</label>
                     <div class="col-md-6 col-sm-6">
                         <input type="text" id="job" name="job" class="form-control col-md-7 col-xs-12">
                     </div>
                 </div>
                 <div class="form-group col-md-12">
-                    <label class="control-label col-md-3 col-sm-3" for="website">Web-Site
+                    <label class="control-label col-md-3 col-sm-3" for="website">{{  var.lang.website  }}
                     </label>
                     <div class="col-md-6 col-sm-6">
                         <input type="url" id="website" required="required" class="form-control col-md-7 col-xs-12">
                     </div>
                 </div>
-                <div class="x_content">
-                    <p>Drag multiple files to the box below for multi upload or click to select files. This is for demonstration purposes only, the files are not uploaded to any server.</p>
-                    <form action="form_upload.html" class="dropzone" id="userDropzone"></form>
-                    <br />
-                    <br />
-                    <br />
-                    <br />
-                </div>
-                <div class="dz-preview dz-file-preview">
-                    <div class="dz-details">
-                        <div class="dz-filename"><span data-dz-name></span></div>
-                        <div class="dz-size" data-dz-size></div>
-                        <img data-dz-thumbnail />
+                <div class="form-group col-md-12">
+                    <label class="control-label col-md-3 col-sm-3" for="group_id">{{ var.lang.member_group  }}
+                    </label>
+                    <div class="col-md-6 col-sm-6">
+                        <select class="form-control" id="insert-group_id" name="group" required>
+                        </select>
                     </div>
-                    <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>
-                    <div class="dz-success-mark"><span>✔</span></div>
-                    <div class="dz-error-mark"><span>✘</span></div>
-                    <div class="dz-error-message"><span data-dz-errormessage></span></div>
                 </div>
                 <div class="clear"></div>
             </div>
             <div class="modal-body">
-                <div class="form-group col-md-12">
-                    <label class="control-label col-md-3 col-sm-3" for="username">Username
-                    </label>
-                    <div class="col-md-6 col-sm-6">
-                        <input type="text" id="username" disabled class="form-control col-md-7 col-xs-12">
-                    </div>
-                </div>
-                <div class="form-group col-md-12">
-                    <label class="control-label col-md-3 col-sm-3" for="password">Password
-                    </label>
-                    <div class="col-md-6 col-sm-6">
-                        <input type="password" id="password" disabled class="form-control col-md-7 col-xs-12">
-                    </div>
-                </div>
-                <div class="form-group col-md-12">
-                    <label class="control-label col-md-3 col-sm-3" for="username">Conifrm Password
-                    </label>
-                    <div class="col-md-6 col-sm-6">
-                        <input type="password" id="username" disabled class="form-control col-md-7 col-xs-12">
-                    </div>
-                </div>
+
                 <div class="clear"></div>
             </div>
             <div class="modal-footer">

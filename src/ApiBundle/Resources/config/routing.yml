@@ -1,8 +1,19 @@
 # api/mod_user
 api.mod_user:
-    path:     /mod_user/list
+    path:     /ModUser/list
     defaults: { _controller: ApiBundle:ModUser:list }
 
-api:
-    path:    /
-    defaults: {_controller: ApiBunde:Defult:index }
+api.check_user:
+    path: /ModUser/check_user
+    defaults: { _controller: ApiBundle:ModUser:checkUser }
+api.get_group:
+    path: /ModUser/get_group
+    defaults: { _controller: ApiBundle:ModUser:getGroup }
+
+api.insert_user:
+    path: /ModUser/insert_user
+    defaults: { _controller: ApiBundle:ModUser:insertUser }
+
+api.forEditUser:
+    path: /ModUser/forEditUser
+    defaults: { _controller: ApiBundle:ModUser:forEditUser }

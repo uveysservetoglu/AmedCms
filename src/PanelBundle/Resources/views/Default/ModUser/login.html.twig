@@ -6,7 +6,7 @@
             <img src="/theme/panel/images/logo-site.svg" alt="site-logo">
             <h3>Biber Login</h3>
         </div>
-        <form id="" action="/panel/login/control" class="" style="margin-bottom: 0px !important;" method="post" novalidate="novalidate">
+        <form id="" action="/{{ var.locale }}/panel/login/control" class="" style="margin-bottom: 0px !important;" method="post" novalidate="novalidate">
             <div class="">
                 <input type="text" class="form-control" id="username" placeholder="Kullanıcı Adı" name="username">
                 <input type="hidden" id="xss" name="xss" value='{% if var.xss is defined %}{{ var.xss }}{% endif %}'>

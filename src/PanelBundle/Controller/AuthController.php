@@ -24,14 +24,12 @@ class AuthController extends BaseController
         $xss = $this->generateXssCode();
         $this->var['title']='User Profile';
         $this->var['xss'] = $xss;
-        return $this->render('@Panel/Default/login.html.twig', ['var' => $this->var]);
+        return $this->render('@Panel/Default/ModUser/login.html.twig', ['var' => $this->var]);
     }
     /**
      * @Route("/panel/giris/control")
      */
     public function controlAction(Request $request=null){
-        $this->var['locale']=$request->getLocale();
-
         $this->init('giris','ModUser');
         $username           = $request ->request->get('username');
         $password           = $request ->request->get('password');
@@ -42,7 +40,7 @@ class AuthController extends BaseController
             if ($this->isValidXss($xss))
             {
                 $auth=$this->processLogin($username,$password);
-                if($auth == 'success.session')
+                if($auth == $this->var['lang']['success.login'])
                 {
                     /** @var \ApiBundle\Repository\ModUserAuthRepository $userRepo */
                     $repo    =  $this->getDoctrine()->getRepository('ApiBundle:ModUser');
@@ -56,7 +54,8 @@ class AuthController extends BaseController
                         'address'       => $user[0]['address'],
                         'job'           => $user[0]['job'],
                         'website'       => $user[0]['website'],
-                        'image'         => $user[0]['image']
+                        'image'         => $user[0]['image'],
+                        'group_id'      => $user[0]['groupId']
                     );
                     $this->session->set('authentication_data', $member_details);
                     $this->var['user']=$member_details;
@@ -65,12 +64,12 @@ class AuthController extends BaseController
                     $this->var['message']=$auth;
                 }
             }else{
-                $this->var['message'] = 'error.xss';
+                $this->var['message'] = $this->var['lang']['error.xss'];
             }
         }else{
-            $this->var['message'] = 'error.xss';
+            $this->var['message'] = $this->var['lang']['error.xss'];
         }
-        return $this->render('PanelBundle:Default:login.html.twig', ['var' => $this->var]);
+        return $this->render('PanelBundle:Default/ModUser:login.html.twig', ['var' => $this->var]);
     }
     private function processLogin($username,$password){
         if(($username != null or !empty($username)) and ($username != null or !empty($username))){
@@ -84,13 +83,14 @@ class AuthController extends BaseController
             {
                 foreach ($response as $res)
                 {
-                    $msg = ($res['password'] == sha1($password)) ? 'success.session':'error.password';
+                    $msg = ($res['password'] == sha1($password)) ? $this->var['lang']['success.login']:$this->var['lang']['error.password'];
                 }
             }else{
-                $msg = 'error.username';
+                $msg = $this->var['lang']['error.username'];
             }
         }else{
-            $msg = 'error.null';
+
+            $msg = $this->var['lang']['please_login'];
         }
         return $msg;
     }
@@ -139,10 +139,10 @@ class AuthController extends BaseController
 
         if(!$this->get('panel.user')->ifLogin()){
             $this->init('giris','ModUser');
-            return $this->render('PanelBundle:Default:login.html.twig', ['var' => $this->var['message']='error.session']);
+            return $this->render('PanelBundle:Default/ModUser:login.html.twig', ['var' => $this->var['message']='error.session']);
         }
 
-        $this->init('dashboard');
+        $this->init('dashboard','ModUser');
         $this->var['title']='User Profile';
         return $this->render('PanelBundle:Default:index.html.twig', ['var' => $this->var]);
     }

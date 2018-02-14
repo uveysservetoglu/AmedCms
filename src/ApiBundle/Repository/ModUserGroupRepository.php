@@ -10,4 +10,10 @@ namespace ApiBundle\Repository;
  */
 class ModUserGroupRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getGroup(){
+        $dql = "SELECT u.id, u.name FROM ApiBundle:ModUserGroup u";
+        return $this -> getEntityManager()
+            -> createQuery($dql)
+            -> getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+    }
 }

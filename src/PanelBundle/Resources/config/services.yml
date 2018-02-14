@@ -5,7 +5,7 @@ services:
 
     panel.user:
         class: PanelBundle\Service\UserServices
-        arguments: ['@service_container']
+        arguments: [ "@doctrine.orm.entity_manager" ]
         public: true
 
     panel.lang:

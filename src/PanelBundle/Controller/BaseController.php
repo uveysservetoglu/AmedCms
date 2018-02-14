@@ -18,6 +18,8 @@ class BaseController extends Controller
     public $session;
     public $var;
     public $em;
+    public $local;
+    public $langService;
     public $userService;
     public $currentPage;
     public $currentDirectory;
@@ -28,21 +30,26 @@ class BaseController extends Controller
         $this->var['title'] = 'Biber İçerik Yönetim Sistemi';
     }
     public function init($page=null,$mod = null){
+        $this->var['error']= array(
+            'status'  => false,
+            'message' => null
+        );
         $this->currentPage = $page;
         $this->currentDirectory = $mod;
         $this->var['locale'] = $this->get('translator')->getLocale();
         $directory =null;
-
         if($mod != null ){
             $directory = '/'.$mod;
-            $mod = 'ModUser';
         }
+
         $lang = $this->get('panel.lang')->lang($mod);
         $this->var['lang'] = $lang[$mod][$this->var['locale']];
+
         $this->panelMenu();
         $this->generateCssAndJs();
         $this->var['page'] ='@Panel/Default'.$directory.'/'.$page.'.html.twig';
     }
+
     private function generateCssAndJs(){
         /** JS Include **/
         $this->var['css'][]   = "/theme/panel/bootstrap/dist/css/bootstrap.min.css" ;
