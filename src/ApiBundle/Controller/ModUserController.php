@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Validator\Constraints\DateTime;
+
 
 class ModUserController extends Controller
 {
@@ -76,8 +76,6 @@ class ModUserController extends Controller
             return new JsonResponse('null.input');
         }
 
-        $em = $this->getDoctrine()->getManager();
-
         $repo = $this -> getDoctrine()
             -> getRepository('ApiBundle:ModUser');
 
@@ -102,9 +100,9 @@ class ModUserController extends Controller
         $user->setGroupId($data->get('group'));
         $user->setStatus('a');
         $user->setIp($request->server->get('REMOTE_ADDR'));
-        $em->persist($user);
+        $this->em->persist($user);
 
-        $em->flush();
+        $this->em->flush();
 
         return new JsonResponse('success.insert');
     }
@@ -118,5 +116,35 @@ class ModUserController extends Controller
             -> getRepository('ApiBundle:ModUser')
             ->getUser((int)$request->get('id')[0]);
         return new JsonResponse($repo);
+    }
+
+    public function editUserAction(){
+        if(!$this->get('panel.user')->ifRoll('ModUser','edit')){
+            return new JsonResponse('not.roll');
+        }
+        $request = Request::createFromGlobals();
+
+
+        $editUser = $request->request;
+
+        $userRepo = $this->em->getRepository('ApiBundle:ModUser')->find($editUser->get('userId'));
+
+        if(!$userRepo){
+            return new JsonResponse('not.userId');
+        }
+        $userRepo->setNameSurname($editUser->get('nameSurname'));
+        $userRepo->setNameSurname($editUser->get('nameSurname'));
+        $userRepo->setMobil($editUser->get('mobil'));
+        $from =  new \DateTime( $editUser->get('birthday'));
+        $userRepo->setBirthday($from);
+        $userRepo->setEmail($editUser->get('email'));
+        $userRepo->setAddress($editUser->get('address'));
+        $userRepo->setJob($editUser->get('job'));
+        $userRepo->setWebsite($editUser->get('website'));
+        $userRepo->setGroupId($editUser->get('group'));
+        $userRepo->setIp($request->server->get('REMOTE_ADDR'));
+
+        $this->em->flush();
+        return new JsonResponse('success.insert');
     }
 }

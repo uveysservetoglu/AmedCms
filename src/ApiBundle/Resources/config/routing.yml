@@ -17,3 +17,6 @@ api.insert_user:
 api.forEditUser:
     path: /ModUser/forEditUser
     defaults: { _controller: ApiBundle:ModUser:forEditUser }
+api.edit_user:
+    path: /ModUser/edit_user
+    defaults: {_controller: ApiBundle:ModUser:editUser}

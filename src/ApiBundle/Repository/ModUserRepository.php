@@ -20,7 +20,7 @@ class ModUserRepository extends \Doctrine\ORM\EntityRepository
             $filter = 'u';
         }else{
             $find=array('id',$param);
-            $filter ='u.nameSurname, u.birthday, u.mobil, u.email, u.address, u.job, u.website, u.groupId';
+            $filter ='u.id, u.nameSurname, u.birthday, u.mobil, u.email, u.address, u.job, u.website, u.groupId';
         }
         $dql = "SELECT ".$filter." FROM ApiBundle:ModUser u WHERE u.".$find[0]." = :".$find[0];
         return $this -> getEntityManager()

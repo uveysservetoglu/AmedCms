@@ -40,26 +40,23 @@
         }
     );
 
-    function test(com,grid)
-    {
+    function test(com,grid) {
         /** Insert If**/
-        if (com=='{{ var.lang.grid.10 }}')/** Add If**/
-        {
+        if (com=='{{ var.lang.grid.10 }}')/** Add If**/{
             $.get( "/{{ var.locale }}/api/ModUser/get_group", function( data ) {
                 $("#insert-group_id").html("<option value='0'>{{ var.lang.member_group }}</option>");
                 $.each( data, function( key, value ) {
                     $("#insert-group_id").append("<option value='"+value.id +"'>"+value.name +"</option>");
                 });
             });
-
             $(".insertModal").modal('show');
             var inputList = $(".insertModal").find('input');
             for(var i = 0; i < inputList.length; i++) {
               $(inputList[i]).val('');
             }
         }
-        else if (com == '{{ var.lang.grid.11 }}') {
-            if ($('.trSelected', grid).length == 1) {
+        else if (com == '{{ var.lang.grid.11 }}'){
+            if ($('.trSelected', grid).length == 1){
                 var id = '';
                 id +='&id[]='+$('.trSelected:first',grid).attr('id').replace(/row/i,'');
                 $.ajax({
@@ -80,13 +77,14 @@
                                     $.each( data, function( key, value ) {
                                         console.warn(msg[0].groupId);
                                         if(value.id == msg[0].groupId){
-                                            $("#insert-group_id").append("<option value='"+value.id +"' selected>"+value.name +"</option>");
+                                            $("#edit-group_id").append("<option value='"+value.id +"' selected>"+value.name +"</option>");
                                         }else{
-                                            $("#insert-group_id").append("<option value='"+value.id +"'>"+value.name +"</option>");
+                                            $("#edit-group_id").append("<option value='"+value.id +"'>"+value.name +"</option>");
                                         }
                                     });
                                 });
                                 $('#nameSurname').val(msg[0].nameSurname);
+                                $('#userId').val(msg[0].id);
                                 $('#birthday').val(date[0]);
                                 $('#mobil').val(msg[0].mobil);
                                 $('#email').val(msg[0].email);
@@ -100,8 +98,8 @@
             }else{
                 toastr["error"]("{{ var.lang.grid.15 }}")
             }
-        }else if (com=='{{ var.lang.grid.13 }}')/** Delete If**/
-        {
+        }
+        else if (com=='{{ var.lang.grid.13 }}')/** Delete If**/{
             confirm('Delete ' + $('.trSelected',grid).length + ' items?')
         }
 
@@ -127,7 +125,6 @@
                 }
             );
         }
-
     }
     var status = 'false';
 

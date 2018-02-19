@@ -17,13 +17,13 @@ class MultiLangServices
     public function lang($mod){
         if ($mod != null)
         {
-           switch ($mod){
-               case 'ModUser':
-                   return $this->$mod();
-                   break;
-               default:
-                   return 'method_not_found';
-           }
+            switch ($mod){
+                case 'ModUser':
+                    return $this->$mod();
+                    break;
+                default:
+                    return 'method_not_found';
+            }
         }else
         {
             return 'method_name_null';
@@ -230,24 +230,24 @@ Dilerseniz Artık Kullanıcı Adı Ve Şifrenizle Giriş Yapabilirsiniz.'
                 '19'=>'Hesabınız Oluşturuldu Fakat Hesabınız Aktif Değil.Hesabınızın Yönetici Tarafından Aktifleştirilmesi Gerekmektedir.<br>
 	Yönetici Hesabınızı Onayladıktan Sonra Size Bilgilendirme Postası Gönderilecektir.',
                 'hata' => array(
-            '1'=>'Lütfen Adınızı Belirtin',
-            '2'=>'Lütfen Soyadınızı Belirtin',
-            '3'=>'Lütfen Kullanıcı Adınızı Belirtin',
-            '4'=>'Lütfen E-Posta Adresinizi Belirtin',
-            '5'=>'Lütfen Cep Telefon Numaranızı Belirtin',
-            '6'=>'Adınızda Geçersiz Karekterler Bulunmakta',
-            '7'=>'Soyadınızda Geçersiz Karekterler Bulunmakta',
-            '8'=>'Kullanıcı Adınız En Az 2 En Fazla 12 Karekterden Oluşabilir',
-            '9'=>'Kullanıcı Adınız a-z A-Z 0-9 Karekterlerinden Oluşabilir',
-            '10'=>'Şifreniz En Az 6 En Fazla 16 Karekterden Oluşabilir',
-            '11'=>'Lütfen Geçerli Bir E-Posta Adresi Belirtin',
-            '12'=>'Lütfen Geçerli Bir Cep Telefon Numarası Belirtin.',
-            '13'=>'Belirtmiş Olduğunuz Kullanıcı Adı Sistemde Kayıtlı',
-            '14'=>'Belirtmiş Olduğunuz E-Posta Adresi Sistemde Kayıtlı',
-            '15'=>'Güvenlik Kodunu Hatalı Girdiniz, Lütfen Kontrol Ederek Tekrar Deneyiniz.',
-            '16'=>'Aktivasyon E-Maili Gönderilirken Hata Oluştu.<br/>
+                    '1'=>'Lütfen Adınızı Belirtin',
+                    '2'=>'Lütfen Soyadınızı Belirtin',
+                    '3'=>'Lütfen Kullanıcı Adınızı Belirtin',
+                    '4'=>'Lütfen E-Posta Adresinizi Belirtin',
+                    '5'=>'Lütfen Cep Telefon Numaranızı Belirtin',
+                    '6'=>'Adınızda Geçersiz Karekterler Bulunmakta',
+                    '7'=>'Soyadınızda Geçersiz Karekterler Bulunmakta',
+                    '8'=>'Kullanıcı Adınız En Az 2 En Fazla 12 Karekterden Oluşabilir',
+                    '9'=>'Kullanıcı Adınız a-z A-Z 0-9 Karekterlerinden Oluşabilir',
+                    '10'=>'Şifreniz En Az 6 En Fazla 16 Karekterden Oluşabilir',
+                    '11'=>'Lütfen Geçerli Bir E-Posta Adresi Belirtin',
+                    '12'=>'Lütfen Geçerli Bir Cep Telefon Numarası Belirtin.',
+                    '13'=>'Belirtmiş Olduğunuz Kullanıcı Adı Sistemde Kayıtlı',
+                    '14'=>'Belirtmiş Olduğunuz E-Posta Adresi Sistemde Kayıtlı',
+                    '15'=>'Güvenlik Kodunu Hatalı Girdiniz, Lütfen Kontrol Ederek Tekrar Deneyiniz.',
+                    '16'=>'Aktivasyon E-Maili Gönderilirken Hata Oluştu.<br/>
 	 Lütfen Sistem Yöneticisi İle İrtibata Geçin. '
-        )
+                )
             ),
             'aktivasyon' => array(
                 '1'=>'Hesap Aktivasyonu',
@@ -269,55 +269,55 @@ Dilerseniz Artık Kullanıcı Adı Ve Şifrenizle Giriş Yapabilirsiniz.'
                 )
             ),
             're_aktivasyon' => array(
-            '1'=>'Aktivasyon Kodunuz Gönderildi Lütfen E-Posta\'nızı Kontrol Ederek Hesabınızı Aktifleştirin',
-            '2'=>'Size Aktivasyon Kodu Göndere Bilmemiz İçin.<br/> Aşağıdaki Alana Hesabınızın Bağlı Olduğu E-Posta Adresini Yazın.',
-            '3'=>'Aktivasyon Kodu',
-            '4'=>'E-Posta',
-            '5'=>'Güvelik Kodu',
-            '6'=>'Gönder',
-            '7'=>'Aktivasyon Kodu',
-            'hata' => array(
-            '1'=>'Aktivasyon Kodu Gönderilirken Hata Oluştu Lütfen Sistem Yöneticisi İle İrtibata Geçin.',
-            '2'=>'Güvenlik Kodunu Hatalı Girdiniz, Lütfen Kontrol Ederek Tekrar Deneyiniz.',
-            '3'=>'Lütfen Hesabınızın Bağlı Olduğu E-Posta Adresini Yazın',
-            '4'=>'Geçersiz Bir E-Posta Adresi Yazdınız.',
-            '5'=>'Belirtmiş Olduğunuz E-Posta Adresi Herhangi Bir Hesaba Kayıtlı Değil.',
-            '6'=>'Yazmış Olduğunuz E-Posta Adresine Bağlı Hesap Zaten Aktif Durumda!',
-            '7'=>'Yazmış Olduğunuz E-Posta Adresine Bağlı Hesap Sadece Yönetici Tarafından Aktifleştirilebilinir.',
-            '8'=>'Yazmış Olduğunuz E-Posta Adresine Ait Aktivasyon Kodu Bulunmuyor!'
-        )
-        ),
+                '1'=>'Aktivasyon Kodunuz Gönderildi Lütfen E-Posta\'nızı Kontrol Ederek Hesabınızı Aktifleştirin',
+                '2'=>'Size Aktivasyon Kodu Göndere Bilmemiz İçin.<br/> Aşağıdaki Alana Hesabınızın Bağlı Olduğu E-Posta Adresini Yazın.',
+                '3'=>'Aktivasyon Kodu',
+                '4'=>'E-Posta',
+                '5'=>'Güvelik Kodu',
+                '6'=>'Gönder',
+                '7'=>'Aktivasyon Kodu',
+                'hata' => array(
+                    '1'=>'Aktivasyon Kodu Gönderilirken Hata Oluştu Lütfen Sistem Yöneticisi İle İrtibata Geçin.',
+                    '2'=>'Güvenlik Kodunu Hatalı Girdiniz, Lütfen Kontrol Ederek Tekrar Deneyiniz.',
+                    '3'=>'Lütfen Hesabınızın Bağlı Olduğu E-Posta Adresini Yazın',
+                    '4'=>'Geçersiz Bir E-Posta Adresi Yazdınız.',
+                    '5'=>'Belirtmiş Olduğunuz E-Posta Adresi Herhangi Bir Hesaba Kayıtlı Değil.',
+                    '6'=>'Yazmış Olduğunuz E-Posta Adresine Bağlı Hesap Zaten Aktif Durumda!',
+                    '7'=>'Yazmış Olduğunuz E-Posta Adresine Bağlı Hesap Sadece Yönetici Tarafından Aktifleştirilebilinir.',
+                    '8'=>'Yazmış Olduğunuz E-Posta Adresine Ait Aktivasyon Kodu Bulunmuyor!'
+                )
+            ),
             'sifremiunuttum' => array(
-            '1'=>'Şifrenizi Sıfırlayabilmeniz İçin Size Bir E-Posta Gönderdik.<br/>Lütfen E-Posta\'nızı Kontrol Ederek E-Posta\'da  Belirtilen Adımları İzleyin.',
-            '2'=>'Şifrenizi Sıfırlayabilmemiz İçin.<br/> Aşağıdaki Alana Hesabınızın Bağlı Olduğu E-Posta Adresini Yazın.',
-            '3'=>'Şifre Sıfırlama',
-            '4'=>'E-Posta',
-            '5'=>'Güvelik Kodu',
-            '6'=>'Gönder',
-            '7'=>'Şifremi Unuttum',
-            'hata' =>array(
-            '1'=>'Şifre Sıfırlama Kodu Gönderilirken Hata Oluştu Lütfen Sistem Yöneticisi İle İrtibata Geçin.',
-            '2'=>'Güvenlik Kodunu Hatalı Girdiniz, Lütfen Kontrol Ederek Tekrar Deneyiniz.',
-            '3'=>'Lütfen Hesabınızın Bağlı Olduğu E-Posta Adresini Yazın',
-            '4'=>'Geçersiz Bir E-Posta Adresi Yazdınız.',
-            '5'=>'Belirtmiş Olduğunuz E-Posta Adresi Herhangi Bir Hesaba Kayıtlı Değil.'
-        )
-        ),
+                '1'=>'Şifrenizi Sıfırlayabilmeniz İçin Size Bir E-Posta Gönderdik.<br/>Lütfen E-Posta\'nızı Kontrol Ederek E-Posta\'da  Belirtilen Adımları İzleyin.',
+                '2'=>'Şifrenizi Sıfırlayabilmemiz İçin.<br/> Aşağıdaki Alana Hesabınızın Bağlı Olduğu E-Posta Adresini Yazın.',
+                '3'=>'Şifre Sıfırlama',
+                '4'=>'E-Posta',
+                '5'=>'Güvelik Kodu',
+                '6'=>'Gönder',
+                '7'=>'Şifremi Unuttum',
+                'hata' =>array(
+                    '1'=>'Şifre Sıfırlama Kodu Gönderilirken Hata Oluştu Lütfen Sistem Yöneticisi İle İrtibata Geçin.',
+                    '2'=>'Güvenlik Kodunu Hatalı Girdiniz, Lütfen Kontrol Ederek Tekrar Deneyiniz.',
+                    '3'=>'Lütfen Hesabınızın Bağlı Olduğu E-Posta Adresini Yazın',
+                    '4'=>'Geçersiz Bir E-Posta Adresi Yazdınız.',
+                    '5'=>'Belirtmiş Olduğunuz E-Posta Adresi Herhangi Bir Hesaba Kayıtlı Değil.'
+                )
+            ),
             'saktivasyon' => array(
-            '1'=>'Şifre Sıfırlama',
-            '2'=>'Yeni Şifrenizi Üretebilmemiz İçin,Lütfen Aşağıdaki Alana Şifre Sıfırlama Aktivasyon Kodunuzu Yazınız.',
-            '3'=>'Aktivasyon Kodu',
-            '4'=>'Güvenlik Kodu',
-            '5'=>'Gönder',
-            '6'=>'Tebrikler,Yeni Şifreniz E-Posta Adresinize Gönderildi.<br/>Lütfen E-Posta Adresinizi Kontrol Ediniz.',
-            'hata' => array(
-            '1'=>'Güvenlik Kodunu Hatalı Girdiniz,Lütfen Kontrol Ederek Tekrar Deneyiniz.',
-            '2'=>'Lütfen Aktivasyon Kodunu Yazın.',
-            '3'=>'Belirttiğiniz Aktivasyon Kodu Geçersiz,
+                '1'=>'Şifre Sıfırlama',
+                '2'=>'Yeni Şifrenizi Üretebilmemiz İçin,Lütfen Aşağıdaki Alana Şifre Sıfırlama Aktivasyon Kodunuzu Yazınız.',
+                '3'=>'Aktivasyon Kodu',
+                '4'=>'Güvenlik Kodu',
+                '5'=>'Gönder',
+                '6'=>'Tebrikler,Yeni Şifreniz E-Posta Adresinize Gönderildi.<br/>Lütfen E-Posta Adresinizi Kontrol Ediniz.',
+                'hata' => array(
+                    '1'=>'Güvenlik Kodunu Hatalı Girdiniz,Lütfen Kontrol Ederek Tekrar Deneyiniz.',
+                    '2'=>'Lütfen Aktivasyon Kodunu Yazın.',
+                    '3'=>'Belirttiğiniz Aktivasyon Kodu Geçersiz,
 		Lütfen Kontrol Ederek Tekrar Deneyiniz.',
-            '4'=>'E-Posta Gönderilirken Hata Oluştur Lütfen Sistem Yöneticisi İle İrtibata Geçin!'
-        )
-        ),
+                    '4'=>'E-Posta Gönderilirken Hata Oluştur Lütfen Sistem Yöneticisi İle İrtibata Geçin!'
+                )
+            ),
             'roll' => array(
                 'ad'=>'Üyelik Rolleri',
                 'ekle'=>'Üye Ekleyebilir',
@@ -654,8 +654,13 @@ Dilerseniz Artık Kullanıcı Adı Ve Şifrenizle Giriş Yapabilirsiniz.'
     private function otherLang(){
         return array(
             'tr' =>array(
-            '1'=> 'Bilinmeyen Hata',
-            '2' => 'Ekleme Islemi Tamamlandi'
+                '1'=> 'Bilinmeyen Hata',
+                '2' => 'Ekleme Islemi Tamamlandi',
+                'form'=>array(
+                    'save' => 'Kaydet',
+                    'edit' => 'Duzenle',
+                    'close' => 'Iptal'
+                )
             )
         );
     }
