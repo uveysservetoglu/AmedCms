@@ -1,0 +1,59 @@
+<script type="text/javascript">
+    var height_flexi = $('.right_col').height();
+    $("#flex1").flexigrid
+    (
+        {
+            url: '/{{ var.locale }}/api/ModUserGroup/list',
+            dataType : 'json',
+            pagesText: '{{ var.lang.grid.pagesText }}',
+            pagestat : '{{ var.lang.genel.tr.grid.pagesTat }}',
+            colModel : [
+                {display: 'ID', name : 'id', width : 40, sortable : true, align: 'center'},
+                {display: '{{ var.lang.grid.pagesText }}',name : 'name', width : 180, sortable : true, align: 'left'},
+            ],
+            buttons : [
+                {name: '{{ var.lang.genel.tr.grid.add }}', bclass: 'add', onpress : test},
+                {name: '{{ var.lang.genel.tr.grid.edit }}', bclass: 'edit', onpress : test},
+                {name: '{{ var.lang.genel.tr.grid.delete }}', bclass: 'delete', onpress : test},
+                {separator: true}
+            ],
+            searchitems : [
+                {display: 'ID', name : 'id'},
+                {display: '{{ var.lang.grid.pagesText}}', name : 'name', isdefault: true}
+            ],
+            sortname: "id",
+            sortorder: "desc",
+            usepager: true,
+            title: '{{ var.title }}',
+            useRp: true,
+            rp: 10,
+            showTableToggleBtn: true,
+            width: '100%',
+            height: 265
+        }
+    );
+    function test(com,grid) {
+        if ('{{ var.lang.genel.tr.grid.add }}'){
+            $(".insertModal").modal('show');
+        }
+    }
+
+    var status = 'false';
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+</script>

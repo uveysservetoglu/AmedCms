@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 
-class ModUserController extends Controller
+class ModUserController extends BaseController
 {
     /**
      * @Route("/api/mod_user/user_list")
@@ -30,8 +30,7 @@ class ModUserController extends Controller
             'offset'        => $request->get('page') != 1 ? (($request->get('page')-1) * $request->get('rp')) : NULL
         );
         /** @var ModUser $userRepo */
-        $repo = $this -> getDoctrine()
-                      -> getRepository('ApiBundle:ModUser');
+        $repo =$this->getRepo('ApiBundle:ModUser');
         $data = array(
             'userList' => $repo->getUserList($param),
             'page'     => $param['page'],
@@ -47,9 +46,7 @@ class ModUserController extends Controller
             return new JsonResponse('not.roll');
         }
         $request = Request::createFromGlobals();
-        $repo = $this -> getDoctrine()
-            -> getRepository('ApiBundle:ModUser')
-            -> getUser($request->get('username')[0]);
+        $repo = $this ->getRepo('ApiBundle:ModUser')->getUser($request->get('username')[0]);
         $status='';
         if(!empty($repo)){
            $status ='false';
@@ -60,9 +57,10 @@ class ModUserController extends Controller
     }
 
     public function getGroupAction(){
-        $repo = $this -> getDoctrine()
-            -> getRepository('ApiBundle:ModUserGroup')
-            ->getGroup();
+        if(!$this->get('panel.user')->ifRoll('ModUserGroup','list')){
+            return new JsonResponse('not.roll');
+        }
+        $repo = $this ->getRepo('ApiBundle:ModUserGroup')->getGroup();
         return new JsonResponse($repo);
     }
 
@@ -70,26 +68,19 @@ class ModUserController extends Controller
         if(!$this->get('panel.user')->ifRoll('ModUser','insert')){
             return new JsonResponse('not.roll');
         }
-
         $request = Request::createFromGlobals();
         if (empty($request->request)){
             return new JsonResponse('null.input');
         }
-
-        $repo = $this -> getDoctrine()
-            -> getRepository('ApiBundle:ModUser');
-
+        $repo = $this -> getRepo('ApiBundle:ModUser');
         if($repo->getUser($request->request->get('username'))){
             return new JsonResponse('not.username');
         }
         $data = $request->request;
-
         $user = new ModUser();
         $user->setNameSurname($data->get('nameSurname'));
         $user->setMobil($data->get('mobil'));
-
         $from =  new \DateTime( $data->get('birthday'));
-
         $user->setBirthday($from);
         $user->setEmail($data->get('email'));
         $user->setAddress($data->get('address'));
@@ -100,10 +91,8 @@ class ModUserController extends Controller
         $user->setGroupId($data->get('group'));
         $user->setStatus('a');
         $user->setIp($request->server->get('REMOTE_ADDR'));
-        $this->em->persist($user);
-
-        $this->em->flush();
-
+        $action = array('action'=>'insert', 'data' => $user);
+        $this->crudData($action);
         return new JsonResponse('success.insert');
     }
 
@@ -112,9 +101,7 @@ class ModUserController extends Controller
             return new JsonResponse('not.roll');
         }
         $request = Request::createFromGlobals();
-        $repo = $this -> getDoctrine()
-            -> getRepository('ApiBundle:ModUser')
-            ->getUser((int)$request->get('id')[0]);
+        $repo = $this->getRepo('ApiBundle:ModUser')->getUser((int)$request->get('id')[0]);
         return new JsonResponse($repo);
     }
 
@@ -123,11 +110,8 @@ class ModUserController extends Controller
             return new JsonResponse('not.roll');
         }
         $request = Request::createFromGlobals();
-
-
         $editUser = $request->request;
-
-        $userRepo = $this->em->getRepository('ApiBundle:ModUser')->find($editUser->get('userId'));
+        $userRepo = $this->getRepo('ApiBundle:ModUser')->find($editUser->get('userId'));
 
         if(!$userRepo){
             return new JsonResponse('not.userId');
@@ -143,8 +127,46 @@ class ModUserController extends Controller
         $userRepo->setWebsite($editUser->get('website'));
         $userRepo->setGroupId($editUser->get('group'));
         $userRepo->setIp($request->server->get('REMOTE_ADDR'));
-
-        $this->em->flush();
+        $action = array('action'=>'update', 'data' => $userRepo);
+        $this->crudData($action);
         return new JsonResponse('success.insert');
+    }
+
+    public function deleteUserAction(){
+        if(!$this->get('panel.user')->ifRoll('ModUser','delete')){
+            return new JsonResponse('not.roll');
+        }
+
+        $request = Request::createFromGlobals();
+        $em = $this->getDoctrine()->getManager();
+        $req = $request->get('sil');
+        foreach ($req as $id){
+            $userRepo = $em->getRepository('ApiBundle:ModUser')->find($id);
+            $action = array('action'=>'delete', 'data' => $userRepo);
+            $this->crudData($action);
+        }
+
+        return new JsonResponse('success.delete');
+
+    }
+
+    public function statusUserAction(){
+        if(!$this->get('panel.user')->ifRoll('ModUser','edit')){
+            return new JsonResponse('not.roll');
+        }
+        $request = Request::createFromGlobals();
+        $editUser = $request->request;
+
+        $getId = $editUser->get('id');
+        foreach ($getId as $id){
+            $userRepo = $this->getRepo('ApiBundle:ModUser')->find($id);
+            if (!$userRepo){
+                return new JsonResponse('not.userId');
+            }
+            $userRepo->setStatus($editUser->get('status')[0]);
+            $action = array('action' => 'update', 'data' => $userRepo);
+            $this->crudData($action);
+        }
+        return new JsonResponse('success.active');
     }
 }

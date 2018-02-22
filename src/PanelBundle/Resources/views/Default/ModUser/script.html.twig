@@ -1,32 +1,32 @@
 <script type="text/javascript">
     var height_flexi = $('.right_col').height();
-
     $("#flex1").flexigrid
     (
         {
             url: '/{{ var.locale }}/api/ModUser/list',
             dataType : 'json',
-            pagesText: '{{ var.lang.grid.35 }}',
-            pagestat :  '{{ var.lang.grid.1 }}',
+            pagesText: '{{ var.lang.grid.nameSurname }}',
+            pagestat :  '{{ var.lang.genel.tr.grid.pagesTat }}',
             colModel : [
                 {display: 'ID', name : 'id', width : 40, sortable : true, align: 'center'},
-                {display: '{{ var.lang.grid.35 }}', name : 'nameSurname', width : 180, sortable : true, align: 'left'},
-                {display: '{{ var.lang.grid.9 }}', name : 'email', width : 120, sortable : true, align: 'left'},
-                {display: '{{ var.lang.grid.34 }}', name : 'status', width : 90, sortable : true, align: 'center'},
-                {display: '{{ var.lang.grid.8 }}', name : 'username', width : 130, sortable : true, align: 'left'}
+                {display: '{{ var.lang.grid.nameSurname }}',name : 'nameSurname', width : 180, sortable : true, align: 'left'},
+                {display: '{{ var.lang.grid.email }}', name : 'email', width : 120, sortable : true, align: 'left'},
+                {display: '{{ var.lang.grid.status }}', name : 'status', width : 90, sortable : true, align: 'center'},
+                {display: '{{ var.lang.grid.username }}', name : 'username', width : 130, sortable : true, align: 'left'}
             ],
             buttons : [
-                {name: '{{ var.lang.grid.10 }}', bclass: 'add', onpress : test},
-                {name: '{{ var.lang.grid.11 }}', bclass: 'edit', onpress : test},
-                {name: '{{ var.lang.grid.13 }}', bclass: 'delete', onpress : test},
-                {name: '{{ var.lang.grid.23 }}', bclass: 'add', onpress : test},
-                {name: '{{ var.lang.grid.24 }}', bclass: 'delete', onpress : test},
+                {name: '{{ var.lang.genel.tr.grid.add }}', bclass: 'add', onpress : test},
+                {name: '{{ var.lang.genel.tr.grid.edit }}', bclass: 'edit', onpress : test},
+                {name: '{{ var.lang.genel.tr.grid.delete }}', bclass: 'delete', onpress : test},
+                {name: '{{ var.lang.genel.tr.grid.active }}', bclass: 'add', onpress : test},
+                {name: '{{ var.lang.genel.tr.grid.pasivve }}', bclass: 'delete', onpress : test},
                 {separator: true}
             ],
             searchitems : [
                 {display: 'ID', name : 'id'},
-                {display: '{{ var.lang.grid.35}}', name : 'nameSurname', isdefault: true},
-                {display: '{{ var.lang.grid.8 }}', name : 'username', isdefault: true}
+                {display: '{{ var.lang.grid.nameSurname}}', name : 'nameSurname', isdefault: true},
+                {display: '{{ var.lang.grid.username }}', name : 'username', isdefault: true},
+                {display: '{{ var.lang.grid.email }}', name : 'email', isdefault: true}
             ],
             sortname: "id",
             sortorder: "desc",
@@ -39,10 +39,8 @@
             height: 265
         }
     );
-
     function test(com,grid) {
-        /** Insert If**/
-        if (com=='{{ var.lang.grid.10 }}')/** Add If**/{
+        if (com=='{{ var.lang.genel.tr.grid.add }}'){
             $.get( "/{{ var.locale }}/api/ModUser/get_group", function( data ) {
                 $("#insert-group_id").html("<option value='0'>{{ var.lang.member_group }}</option>");
                 $.each( data, function( key, value ) {
@@ -54,8 +52,8 @@
             for(var i = 0; i < inputList.length; i++) {
               $(inputList[i]).val('');
             }
-        }
-        else if (com == '{{ var.lang.grid.11 }}'){
+        }/** Add If**/
+        else if (com == '{{ var.lang.genel.tr.grid.edit }}'){
             if ($('.trSelected', grid).length == 1){
                 var id = '';
                 id +='&id[]='+$('.trSelected:first',grid).attr('id').replace(/row/i,'');
@@ -96,14 +94,97 @@
                         }
                     });
             }else{
-                toastr["error"]("{{ var.lang.grid.15 }}")
+                toastr["error"]("{{ var.lang.grid.15 }}");
             }
-        }
-        else if (com=='{{ var.lang.grid.13 }}')/** Delete If**/{
-            confirm('Delete ' + $('.trSelected',grid).length + ' items?')
-        }
-
+        }/** Update If**/
+        else if (com == '{{ var.lang.genel.tr.grid.delete }}'){
+            if ($('.trSelected', grid).length > 0){
+               var conf = confirm("{{ var.lang.grid.17 }}");
+               if (conf === true){
+                   var deteleString = '';
+                   $('.trSelected',grid).each(
+                       function() {
+                           deteleString+='&sil[]='+$(this).attr('id').replace(/row/i,'');
+                       }
+                   );
+                   // Gönder Silsin
+                   $.ajax({
+                       type: "POST",
+                       url:  "/{{ var.locale }}/api/ModUser/delete_user",
+                       data: deteleString,
+                       success: function(msg){
+                            if(msg === 'success.delete'){
+                                toastr["success"]("{{ var.lang.grid.19 }}");
+                                $('#flex1').flexReload();
+                                toastr["success"]("{{ var.lang.grid.18 }}");
+                            }
+                       }
+                   });
+               }
+            }else{
+                toastr["error"]("{{ var.lang.grid.16 }}");
+            }
+        }/** Delete If**/
+        else if (com == '{{ var.lang.genel.tr.grid.active }}'){
+            if ($('.trSelected', grid).length > 0){
+               var conf = confirm("{{ var.lang.grid.26 }}");
+               if (conf === true){
+                   var active = '';
+                   var varStatus = '';
+                   $('.trSelected',grid).each(
+                       function() {
+                           active+='&id[]='+$(this).attr('id').replace(/row/i,'');
+                       }
+                   );
+                   varStatus = '&status[]=a';
+                   $.ajax({
+                       type: "POST",
+                       url:  "/{{ var.locale }}/api/ModUser/status_user",
+                       data: active+varStatus,
+                       success: function(msg){
+                            if(msg === 'success.active'){
+                                toastr["success"]("{{ var.lang.grid.27 }}");
+                                $('#flex1').flexReload();
+                                toastr["success"]("{{ var.lang.grid.18 }}");
+                            }
+                       }
+                   });
+               }
+            }else{
+                toastr["error"]("{{ var.lang.grid.16 }}");
+            }
+        }/** Active If**/
+        else if (com == '{{ var.lang.genel.tr.grid.pasivve }}'){
+            if ($('.trSelected', grid).length > 0){
+               var conf = confirm("{{ var.lang.grid.29 }}");
+               if (conf === true){
+                   var active = '';
+                   var varStatus = '';
+                   $('.trSelected',grid).each(
+                       function() {
+                           active+='&id[]='+$(this).attr('id').replace(/row/i,'');
+                       }
+                   );
+                   varStatus = '&status[]=p';
+                   $.ajax({
+                       type: "POST",
+                       url:  "/{{ var.locale }}/api/ModUser/status_user",
+                       data: active+varStatus,
+                       success: function(msg){
+                            if(msg === 'success.active'){
+                                toastr["success"]("{{ var.lang.grid.30 }}");
+                                $('#flex1').flexReload();
+                                toastr["success"]("{{ var.lang.grid.18 }}");
+                            }
+                       }
+                   });
+               }
+            }else{
+                toastr["error"]("{{ var.lang.grid.16 }}");
+            }
+        }/** DeActive If**/
     }
+
     function user(event) {
         var username = '';
         username +='&username[]='+$('.'+event+'Modal #insert-username').val();
@@ -127,83 +208,6 @@
         }
     }
     var status = 'false';
-
-    $( "#insert" ).submit(function( event ) {
-        function getUser(st) {
-            return $.ajax({
-                    type: "POST",
-                    url: "/{{ var.locale }}/api/ModUser/check_user",
-                    data: st
-                }
-            );
-        }
-        event.preventDefault();
-        status = 'false';
-        var data = {};
-        var inputList = $(this).find('input');
-        var  inputStatus, passwordStatus, usernameStatus;
-
-        for(var i = 0; i < inputList.length; i++) {
-            if(!$(inputList[i]).attr('name')) {
-                continue;
-            }
-            var value = $(inputList[i]).val();
-            if(value.trim() == null || value.trim() == '' && (
-                    $(inputList[i]).attr('name') == 'nameSurname' ||
-                    $(inputList[i]).attr('name') == 'email' ||
-                    $(inputList[i]).attr('name') == 'username'  ||
-                    $(inputList[i]).attr('name') == 'password' )){
-                $(inputList[i]).css('border', '1px solid red');
-                toastr["error"]("{{ var.lang.hata.33 }}");
-                status = 'true';
-            }else {
-                data[$(inputList[i]).attr('name')] = $(inputList[i]).val();
-            }
-        }
-        data.group = $('.insertModal #insert-group_id').val();
-        var pass = $('#insert-password').val(), passR =$('#insert-password_repeat').val();
-        if(pass.trim() != passR.trim()){
-            toastr["error"]("{{ var.lang.hata.16 }}");
-            status = 'true';
-        }
-        var username = '';
-        username +='&username[]='+data.username;
-        console.log(data.group);
-        if(data.group == 0){
-            toastr["error"]("{{ var.lang.hata.33 }}");
-            $('.insertModal #insert-group_id').css('border', '1px solid red');
-            status = 'true';
-        }
-        getUser(username).done(function (response) {
-            var getUser = response;
-            if(getUser !== 'true'){
-                toastr["error"]("{{ var.lang.hata.5 }}");
-                status = 'true';
-            }
-            if (status !== 'true') {
-                $.ajax({
-                        type: "POST",
-                        url: "/{{ var.locale }}/api/ModUser/insert_user",
-                        data: data,
-                        success: function (msg) {
-                            if(msg === 'success.insert'){
-                                toastr["success"]("{{ var.lang.genel.tr.2 }}");
-                                $('.insertModal').modal('hide');
-                                $('#flex1').flexReload();
-                            }else if(msg === "not.roll"){
-                                toastr["error"]("{{ var.lang.hata.12 }}");
-                            }else if(msg === 'not.username'){
-                                toastr["error"]("{{ var.lang.hata.5 }}");
-                            }else{
-                                toastr["error"]("{{ var.lang.genel.tr.1 }}");
-                            }
-
-                        }
-                    }
-                );
-            }
-        });
-    })
     toastr.options = {
         "closeButton": false,
         "debug": false,

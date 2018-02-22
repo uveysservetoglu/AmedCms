@@ -16,4 +16,18 @@ class ModUserGroupRepository extends \Doctrine\ORM\EntityRepository
             -> createQuery($dql)
             -> getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }
+    public function getUserGroupList($param){
+        $dql = "SELECT ug.id, ug.name FROM ApiBundle:ModUserGroup ug ";
+
+        if($param['query'] !=null){
+            $dql = $dql." WHERE ug.".$param['qtype']." ='".$param['query']."'";
+        }
+        $dql = $dql. "ORDER BY  ug.".$param['sortname']." ".$param['sortorder'];
+        return $this -> getEntityManager()
+            -> createQuery($dql)
+            -> setMaxResults($param['rp'])
+            -> setFirstResult($param['offset'])
+            -> getResult();
+
+    }
 }

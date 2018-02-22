@@ -23,4 +23,8 @@ panel.mod_user:
     path:     /mod_user/user_list
     defaults: { _controller: PanelBundle:ModUser:list}
 
+#/mod_user_group/group_list
+panel.mod_user_group:
+    path:   /mod_user_group/group_list
+    defaults: { _controller: PanelBundle:ModUserGroup:list}
 

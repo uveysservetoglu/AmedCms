@@ -31,27 +31,6 @@ class ModUserGroup
     /**
      * @var int
      *
-     * @ORM\Column(name="sort", type="integer")
-     */
-    private $sort;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="alt", type="integer")
-     */
-    private $alt;
-
-    /**
-     * @var int
-     *
-     * @ORM\Column(name="rolls", type="integer", nullable=true)
-     */
-    private $rolls;
-
-    /**
-     * @var int
-     *
      * @ORM\Column(name="user_id", type="integer")
      */
     private $userId;

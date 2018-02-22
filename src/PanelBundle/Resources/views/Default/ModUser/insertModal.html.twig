@@ -1,7 +1,7 @@
 <div class="modal fade insertModal" tabindex="-1" role="dialog" aria-hidden="true" id="insertModal">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form id="insert">
+            <form id="insert" action="#">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
                     </button>
@@ -95,5 +95,80 @@
     </div>
 </div>
 <script>
+    $( "#insert" ).submit(function( event ) {
+        function getUser(st) {
+            return $.ajax({
+                    type: "POST",
+                    url: "/{{ var.locale }}/api/ModUser/check_user",
+                    data: st
+                }
+            );
+        }
+        event.preventDefault();
+        status = 'false';
+        var data = {};
+        var inputList = $(this).find('input');
+        var  inputStatus, passwordStatus, usernameStatus;
 
+        for(var i = 0; i < inputList.length; i++) {
+            if(!$(inputList[i]).attr('name')) {
+                continue;
+            }
+            var value = $(inputList[i]).val();
+            if(value.trim() == null || value.trim() == '' && (
+                    $(inputList[i]).attr('name') == 'nameSurname' ||
+                    $(inputList[i]).attr('name') == 'email' ||
+                    $(inputList[i]).attr('name') == 'username'  ||
+                    $(inputList[i]).attr('name') == 'password' )){
+                $(inputList[i]).css('border', '1px solid red');
+                toastr["error"]("{{ var.lang.hata.33 }}");
+                status = 'true';
+            }else {
+                data[$(inputList[i]).attr('name')] = $(inputList[i]).val();
+            }
+        }
+        data.group = $('.insertModal #insert-group_id').val();
+        var pass = $('#insert-password').val(), passR =$('#insert-password_repeat').val();
+        if(pass.trim() != passR.trim()){
+            toastr["error"]("{{ var.lang.hata.16 }}");
+            status = 'true';
+        }
+        var username = '';
+        username +='&username[]='+data.username;
+        console.log(data.group);
+        if(data.group == 0){
+            toastr["error"]("{{ var.lang.hata.33 }}");
+            $('.insertModal #insert-group_id').css('border', '1px solid red');
+            status = 'true';
+        }
+        getUser(username).done(function (response) {
+            var getUser = response;
+            if(getUser !== 'true'){
+                toastr["error"]("{{ var.lang.hata.5 }}");
+                status = 'true';
+            }
+            if (status !== 'true') {
+                $.ajax({
+                        type: "POST",
+                        url: "/{{ var.locale }}/api/ModUser/insert_user",
+                        data: data,
+                        success: function (msg) {
+                            if(msg === 'success.insert'){
+                                toastr["success"]("{{ var.lang.genel.tr.2 }}");
+                                $('.insertModal').modal('hide');
+                                $('#flex1').flexReload();
+                            }else if(msg === "not.roll"){
+                                toastr["error"]("{{ var.lang.hata.12 }}");
+                            }else if(msg === 'not.username'){
+                                toastr["error"]("{{ var.lang.hata.5 }}");
+                            }else{
+                                toastr["error"]("{{ var.lang.genel.tr.1 }}");
+                            }
+
+                        }
+                    }
+                );
+            }
+        });
+    });
 </script>

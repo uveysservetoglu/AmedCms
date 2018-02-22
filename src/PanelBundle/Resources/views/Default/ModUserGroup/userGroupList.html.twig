@@ -1,0 +1,35 @@
+<!-- page content -->
+<div class="right_col" role="main">
+    <div class="">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2>{{ var.title }}<small>All in user list</small></h2>
+                    <div class="clearfix"></div>
+                </div>
+
+                <div class="x_content">
+                    {% if var.error.status == true %}
+                        <div class="alert alert-error fade in alert-dismissable" style="margin-top:18px;">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+                            {{ var.error.message }}
+                        </div>
+                    {% else %}
+                        <div class="alert alert-success fade in alert-dismissable" style="margin-top:18px;">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+                            <strong>Bilgi</strong> Islem yapmak istediginiz kaydi tablodan secip istediginiz islemi uygulayabilirsiniz.
+                        </div>
+                        <table id="flex1" style="display:none"></table>
+                    {% endif %}
+                  {{ include('@Panel/Default/ModUserGroup/script.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{#
+{% include '@Panel/Default/ModUserGroup/editModal.html.twig' %}#}
+{% include '@Panel/Default/ModUserGroup/insertModal.html.twig' %}
+
+
+<!-- /page content -->

@@ -33,7 +33,7 @@ class FlexiServices
         );
 
         foreach ($data['userList'] as $dt){
-            $dt['status']= ($dt['status'] == 'a') ? $this->colorData($dt['status'],'green'):$this->colorData($dt['status'],'red');
+            $dt['status']= ($dt['status'] == 'a') ? $this->colorData('Active','green'):$this->colorData('Passive','red');
             $json['rows'][] =array(
                 'id'  => $dt['id'],
                 'cell'=>[
@@ -41,7 +41,25 @@ class FlexiServices
                     $dt['nameSurname'],
                     $dt['email'],
                     $dt['status'],
-                    $dt['username']]
+                    $dt['username']
+                ]
+            );
+        }
+        return ($json);
+    }
+    public function jsonUserGroup($data){
+        $json = array(
+            'total' => $data['total'],
+            'page'  => $data['page'],
+            'rows'  => array()
+        );
+        foreach ($data['data'] as $dt){
+            $json['rows'][] =array(
+                'id'  => $dt['id'],
+                'cell'=>[
+                    $dt['id'],
+                    $dt['name']
+                ]
             );
         }
         return ($json);

@@ -60,15 +60,21 @@ class BaseController extends Controller
         /** JS Include **/
         $this->var['js'][]    = "/theme/panel/jquery/dist/jquery.min.js" ;
         $this->var['js'][]    = "/theme/panel/bootstrap/dist/js/bootstrap.min.js";
+        $this->var['js'][]    = "/theme/panel/bootstrap/dist/js/bootstrap-confirmation.min.js";
 
         switch ($this->currentPage){
             case 'userList':
                 $this->var['css'][]    = "/theme/panel/flexigrid/css/flexigrid/flexigrid.css" ;
-                $this->var['css'][]    = "/theme/panel/dropzone/dist/min/dropzone.min.css" ;
                 $this->var['css'][]    = "/theme/panel/toastr/toastr.min.css" ;
 
                 $this->var['js'][]    = "/theme/panel/flexigrid/flexigrid.js" ;
-                $this->var['js'][]    = "/theme/panel/dropzone/dist/min/dropzone.min.js" ;
+                $this->var['js'][]    = "/theme/panel/toastr/toastr.min.js" ;
+                break;
+            case 'userGroupList';
+                $this->var['css'][]    = "/theme/panel/flexigrid/css/flexigrid/flexigrid.css" ;
+                $this->var['css'][]    = "/theme/panel/toastr/toastr.min.css" ;
+
+                $this->var['js'][]    = "/theme/panel/flexigrid/flexigrid.js" ;
                 $this->var['js'][]    = "/theme/panel/toastr/toastr.min.js" ;
                 break;
         }
@@ -98,10 +104,9 @@ class BaseController extends Controller
                     'name'  => 'User Control',
                     'icon'  => 'fa fa-user',
                     'item'  => array(
-                        0   => array('href'=>'panel/mod_user/user_list','name'=>'User Lists'),
                         1   => array('href'=>'panel/mod_user/user_list','name'=>'User Lists'),
                         2   => array('href'=>'panel/mod_user/member_setting','name'=>'Member Setting'),
-                        3   => array('href'=>'panel/mod_user/user_group','name'=>'User Group'),
+                        3   => array('href'=>'panel/mod_user_group/group_list','name'=>'User Group'),
                         4   => array('href'=>'panel/mod_user/user_roll','name'=>'User Roll')
                     )
                 ),

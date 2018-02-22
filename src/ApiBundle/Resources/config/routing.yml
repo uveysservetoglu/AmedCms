@@ -1,22 +1,36 @@
-# api/mod_user
+# api/mod_user begin
 api.mod_user:
     path:     /ModUser/list
     defaults: { _controller: ApiBundle:ModUser:list }
-
 api.check_user:
     path: /ModUser/check_user
     defaults: { _controller: ApiBundle:ModUser:checkUser }
 api.get_group:
     path: /ModUser/get_group
     defaults: { _controller: ApiBundle:ModUser:getGroup }
-
 api.insert_user:
     path: /ModUser/insert_user
     defaults: { _controller: ApiBundle:ModUser:insertUser }
-
 api.forEditUser:
     path: /ModUser/forEditUser
     defaults: { _controller: ApiBundle:ModUser:forEditUser }
 api.edit_user:
     path: /ModUser/edit_user
     defaults: {_controller: ApiBundle:ModUser:editUser}
+api.delete_user:
+    path: /ModUser/delete_user
+    defaults: {_controller: ApiBundle:ModUser:deleteUser}
+api.status_user:
+    path: /ModUser/status_user
+    defaults: {_controller: ApiBundle:ModUser:statusUser}
+# api/mod_user end
+
+
+# api/mod_user_group begin
+api.mod_user_group:
+    path:     /ModUserGroup/list
+    defaults: { _controller: ApiBundle:ModUserGroup:list }
+
+api.mod_user_group_insert:
+    path:   /ModUser/insert_user_group
+    defaults: { _controller: ApiBundle:ModUserGroup:insert }
