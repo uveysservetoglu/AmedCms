@@ -59,14 +59,14 @@
                 id +='&id[]='+$('.trSelected:first',grid).attr('id').replace(/row/i,'');
                 $.ajax({
                         type: "POST",
-                        url: "/{{ var.locale }}/api/ModUser/forEditUser",
+                        url: "/{{ var.locale }}/api/ModUser/load_edit_user",
                         data: id,
                         dataType:'json',
                         success: function (msg) {
                             if(msg === "not.roll"){
-                                toastr["error"]("{{ var.lang.hata.12 }}");
+                                toastr["error"]("{{ var.lang.genel.tr.not_roll }}");
                             }else if(msg === 'null'){
-                                toastr["error"]("{{ var.lang.hata.12 }}");
+                                toastr["error"]("{{ var.lang.genel.tr.unknown }}");
                             } else{
                                 var date = msg[0].birthday.date;
                                 date = date.split(' ');
@@ -94,12 +94,12 @@
                         }
                     });
             }else{
-                toastr["error"]("{{ var.lang.grid.15 }}");
+                toastr["error"]("{{ var.lang.genel.tr.just_select_row }}");
             }
         }/** Update If**/
         else if (com == '{{ var.lang.genel.tr.grid.delete }}'){
             if ($('.trSelected', grid).length > 0){
-               var conf = confirm("{{ var.lang.grid.17 }}");
+               var conf = confirm("{{ var.lang.grid.min_select_for_delete }}");
                if (conf === true){
                    var deteleString = '';
                    $('.trSelected',grid).each(

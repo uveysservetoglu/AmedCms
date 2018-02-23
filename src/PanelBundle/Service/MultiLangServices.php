@@ -140,10 +140,7 @@ Dilerseniz Artık Kullanıcı Adı Ve Şifrenizle Giriş Yapabilirsiniz.'
                 '5' =>'Hiçbir Veri Bulunamadı',
                 '6' =>'Bağlantı Hatası',
                 '14'=>'Üye Listesi',
-                '15'=>'Düzenleme yapmak için lütfen bir satır seçin',
-                '16'=>'Lütfen Silmek İçin En Az Bir Satır Seçin!',
                 '17'=>"Toplam <font color=red>' + $('.trSelected',grid).length + '</font> Üye Silinecek. <br/>Bu İşlemi Yapmak İstediğinize Emin misiniz?</br> Unutmayınki Bu Üyelerin Ekledikleri İçerikler Kategoriler vs.. Herşey Silinecek!",
-
                 '18'=>'Üye Listesi Yenilendi',
                 '19'=>'Üye Silindi',
                 '22'=>'Üye Grubu',
@@ -168,7 +165,6 @@ Dilerseniz Artık Kullanıcı Adı Ve Şifrenizle Giriş Yapabilirsiniz.'
                 '9'=>'Şifreniz En Az 6 En Fazla 16 Karekterden Oluşabilir',
                 '10'=>'Yazdığınız Kullanıcı Adı Bulunamadı',
                 '11'=>'Kullanıcı Adı veya Şifre Yanlış.',
-                '12'=>'Yetki Hatası',
                 '13'=>'Lütfen Şimdi Kullandığınız Şifrenizi Yazın',
                 '14'=>'Lütfen Yeni Şifrenizi Yazın',
                 '15'=>'Lütfen Yeni Şifrenizi Tekrarlayın',
@@ -349,16 +345,10 @@ Dilerseniz Artık Kullanıcı Adı Ve Şifrenizle Giriş Yapabilirsiniz.'
             'grid'  => array(
                 'name'=>'Grup Adi',
                 'pagesText'=>'Grup Adi',
-                '15'=>'Düzenleme yapmak için lütfen bir satır seçin',
-                '16'=>'Lütfen Silmek İçin En Az Bir Satır Seçin!',
                 '17'=>"Toplam <font color=red>' + $('.trSelected',grid).length + '</font> Üye Silinecek. <br/>Bu İşlemi Yapmak İstediğinize Emin misiniz?</br> Unutmayınki Bu Üyelerin Ekledikleri İçerikler Kategoriler vs.. Herşey Silinecek!",
                 '18'=>'Üye Listesi Yenilendi',
                 '19'=>'Üye Silindi',
-                '20'=>'Evet',
-                '21'=>'Vazgeç',
                 '22'=>'Üye Grubu',
-                '23'=>'Aktifleştir',
-                '24'=>'Pasiflestir',
                 '25'=>'Lütfen Aktifleştirmek İstediğiniz Hesabı Seçin',
                 '26'=>'Seçili Hesapları Aktifleştirmek İstediğinize Eminmisiniz?',
                 '27'=>'Hesaplar Aktifleştirildi!',
@@ -416,11 +406,9 @@ Dilerseniz Artık Kullanıcı Adı Ve Şifrenizle Giriş Yapabilirsiniz.'
     private function otherLang(){
         return array(
             'tr' =>array(
-                '1'=> 'Bilinmeyen Hata',
-                '2' => 'Ekleme Islemi Tamamlandi',
                 'form'=>array(
                     'save' => 'Kaydet',
-                    'edit' => 'Duzenle',
+                    'edit' => 'Düzenle',
                     'close' => 'Iptal'
                 ),
                 'grid' => array(
@@ -432,14 +420,29 @@ Dilerseniz Artık Kullanıcı Adı Ve Şifrenizle Giriş Yapabilirsiniz.'
                     'pasivve'=>'Pasif',
                     'pagesTat'=>'Toplam {total} Sonuçtan {from} den {to}\\\'a Kadar Olanlar Görüntüleniyor.'
                 ),
+                'success_insert'         =>'Ekleme Islemi Tamamlandi',
+                'success_update'         =>'Güncelleme Islemi Tamamlandi',
+                'success_delete'         =>'Silme Islemi Tamamlandi',
+                'sure_delete'            =>'Silmek Istediğinize Emin misiniz?',
+                'refresh_list'           =>'Liste Yenilendi',
+                'yes'                    =>'Evet',
+                'no'                     =>'Hayır',
                 'not_roll'               =>'Bu İşlemi Yapmaya Yetkiniz Yok',
                 'please_login'           =>'Lütfen Giriş yapın.',
                 'login'                  =>'Giriş',
                 'logout'                 =>'Çıkış',
                 'change_password'        =>'Şifre Değişikliği',
                 'change'                 =>'Değiştir',
-
+                'unknown'                =>'Bilinmeyen Hata',
+                'just_select_row'        =>'Düzenleme yapmak için lütfen bir satır seçin',
+                'min_select_for_delete'  =>'Lütfen Silmek İçin En Az Bir Satır Seçin!',
             )
         );
     }
 }
+/*
+Neden vaktinde bilmez insan?
+Neden her güzelliğe sonuna dek yapışmakta direnmez?
+Neden çok sonra anlar en küçük yaşam kırıntısının bile değerlendirilmesi gerektiğini?
+Pınar Kür
+”*/

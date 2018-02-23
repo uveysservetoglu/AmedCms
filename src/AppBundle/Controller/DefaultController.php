@@ -6,6 +6,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
@@ -13,12 +14,9 @@ class DefaultController extends Controller
     /**
      * @Route("/", name="homepage")
      */
-    public function indexAction(Request $request)
-    {
-
-
+    public function indexAction(Request $request){
+        return new JsonResponse(array('result'=>'Success'));
     }
-
     public function jsonToExcelAction(Request $request){
         if (!file_exists("work/{$request}.json")) {
             throw new \Exception("Geçersiz dosya.");

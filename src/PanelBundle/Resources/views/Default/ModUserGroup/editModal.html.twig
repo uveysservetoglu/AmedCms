@@ -9,57 +9,14 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group col-md-12">
-                        <label class="control-label col-md-3 col-sm-3" for="nameSurname">{{ var.lang.nameSurname }}<span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3" for="nameSurname">{{ var.lang.grid.name }}<span class="required">*</span>
                         </label>
-                        <input type="hidden" name="userId" id="userId">
+                        <input type="hidden" name="groupId" id="groupId">
                         <div class="col-md-6 col-sm-6">
-                            <input type="text" id="nameSurname" name="nameSurname" required="required" class="form-control col-md-7 col-xs-12">
+                            <input type="text" id="name" name="name" required="required" class="form-control col-md-7 col-xs-12">
                         </div>
                     </div>
 
-                    <div class="form-group col-md-12">
-                        <label class="control-label col-md-3 col-sm-3" for="birthday">{{  var.lang.birthday  }}</label>
-                        <div class="col-md-6 col-sm-6">
-                            <input type="date" id="birthday" required="required"  class="form-control col-md-7 col-xs-12">
-                        </div>
-                    </div>
-                    <div class="form-group col-md-12">
-                        <label class="control-label col-md-3 col-sm-3" for="mobil">{{  var.lang.mobile_no  }}</label>
-                        <div class="col-md-6 col-sm-6">
-                            <input type="text" id="mobil"  class="form-control col-md-7 col-xs-12">
-                        </div>
-                    </div>
-                    <div class="form-group col-md-12">
-                        <label class="control-label col-md-3 col-sm-3" for="email"> {{  var.lang.email  }}<span class="required">*</span></label>
-                        <div class="col-md-6 col-sm-6">
-                            <input type="text" id="email" required="required" class="form-control col-md-7 col-xs-12">
-                        </div>
-                    </div>
-                    <div class="form-group col-md-12">
-                        <label class="control-label col-md-3 col-sm-3" for="address">{{  var.lang.address  }}</label>
-                        <div class="col-md-6 col-sm-6">
-                            <input type="text" id="address" name="address" class="form-control col-md-7 col-xs-12">
-                        </div>
-                    </div>
-                    <div class="form-group col-md-12">
-                        <label class="control-label col-md-3 col-sm-3" for="job">{{  var.lang.job  }}</label>
-                        <div class="col-md-6 col-sm-6">
-                            <input type="text" id="job" name="job" class="form-control col-md-7 col-xs-12">
-                        </div>
-                    </div>
-                    <div class="form-group col-md-12">
-                        <label class="control-label col-md-3 col-sm-3" for="website">{{  var.lang.website  }}</label>
-                        <div class="col-md-6 col-sm-6">
-                            <input type="url" id="website" class="form-control col-md-7 col-xs-12">
-                        </div>
-                    </div>
-                    <div class="form-group col-md-12">
-                        <label class="control-label col-md-3 col-sm-3" for="group_id">{{ var.lang.member_group  }}
-                        </label>
-                        <div class="col-md-6 col-sm-6">
-                            <select class="form-control" id="edit-group_id" name="group" required></select>
-                        </div>
-                    </div>
                     <div class="clear"></div>
                 </div>
                 <div class="modal-body">
@@ -76,37 +33,22 @@
 </div>
 <script>
     $( "#edit" ).submit(function( event ) {
-
         event.preventDefault();
-        status = 'false';
-        var data = {};
-        var inputList = $(this).find('input');
-
-        data.nameSurname = $('#nameSurname').val();
-        data.birthday    = $('#birthday').val();
-        data.mobil       = $('#mobil').val();
-        data.email       = $('#email').val();
-        data.address     = $('#address').val();
-        data.job         = $('#job').val();
-        data.website     = $('#website').val();
-        data.group       = $('.editModal #edit-group_id').val();
-        data.userId       = $('.editModal #userId').val();
-
+        status    = 'false';
+        var data  = {};
+        data.name = $('#name').val();
+        data.id   = $('#groupId').val();
         $.ajax({
                 type: "POST",
-                url: "/{{ var.locale }}/api/ModUser/edit_user",
+                url: "/{{ var.locale }}/api/ModUser/edit_user_group",
                 data: data,
                 success: function (msg) {
-                    if(msg === 'success.insert'){
-                        toastr["success"]("{{ var.lang.genel.tr.2 }}");
+                    if(msg === 'success.update'){
+                        toastr["success"]("{{ var.lang.genel.tr.success_update }}");
                         $('.editModal').modal('hide');
                         $('#flex1').flexReload();
                     }else if(msg === "not.roll"){
-                        toastr["error"]("{{ var.lang.hata.12 }}");
-                    }else if(msg === 'not.username'){
-                        toastr["error"]("{{ var.lang.hata.5 }}");
-                    }else{
-                        toastr["error"]("{{ var.lang.genel.tr.1 }}");
+                        toastr["error"]("{{ var.lang.genel.tr.not_roll }}");
                     }
                 }
             }

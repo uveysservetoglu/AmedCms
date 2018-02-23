@@ -1,6 +1,6 @@
 # api/mod_user begin
 api.mod_user:
-    path:     /ModUser/list
+    path: /ModUser/list
     defaults: { _controller: ApiBundle:ModUser:list }
 api.check_user:
     path: /ModUser/check_user
@@ -12,8 +12,8 @@ api.insert_user:
     path: /ModUser/insert_user
     defaults: { _controller: ApiBundle:ModUser:insertUser }
 api.forEditUser:
-    path: /ModUser/forEditUser
-    defaults: { _controller: ApiBundle:ModUser:forEditUser }
+    path: /ModUser/load_edit_user
+    defaults: { _controller: ApiBundle:ModUser:loadEditUser }
 api.edit_user:
     path: /ModUser/edit_user
     defaults: {_controller: ApiBundle:ModUser:editUser}
@@ -34,3 +34,15 @@ api.mod_user_group:
 api.mod_user_group_insert:
     path:   /ModUser/insert_user_group
     defaults: { _controller: ApiBundle:ModUserGroup:insert }
+
+api.mod_user_group_edit:
+    path:   /ModUser/edit_user_group
+    defaults: { _controller: ApiBundle:ModUserGroup:edit }
+
+api.mod_user_group_delete:
+    path:   /ModUser/delete_user_group
+    defaults: { _controller: ApiBundle:ModUserGroup:delete }
+
+api.mod_user_group_load_edit :
+    path: /ModUser/load_edit_user_group
+    defaults: {_controller: ApiBundle:ModUserGroup:loadEditUserGroup}

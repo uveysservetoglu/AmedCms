@@ -37,7 +37,7 @@
                     data: data,
                     success: function (msg) {
                         if (msg === 'success.insert') {
-                            toastr["success"]("{{ var.lang.genel.tr.2 }}");
+                            toastr["success"]("{{ var.lang.genel.tr.success_insert }}");
                             $('.insertModal').modal('hide');
                             $('#flex1').flexReload();
                         } else if(msg === 'not.roll') {

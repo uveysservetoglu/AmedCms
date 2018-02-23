@@ -28,6 +28,5 @@ class ModUserGroupRepository extends \Doctrine\ORM\EntityRepository
             -> setMaxResults($param['rp'])
             -> setFirstResult($param['offset'])
             -> getResult();
-
     }
 }

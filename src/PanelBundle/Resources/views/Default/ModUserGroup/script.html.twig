@@ -33,8 +33,61 @@
         }
     );
     function test(com,grid) {
-        if ('{{ var.lang.genel.tr.grid.add }}'){
+        if (com === '{{ var.lang.genel.tr.grid.add }}'){
             $(".insertModal").modal('show');
+        }
+        else if(com === '{{ var.lang.genel.tr.grid.edit }}'){
+            if ($('.trSelected', grid).length == 1) {
+                var id ='';
+                id +='&id[]='+$('.trSelected:first',grid).attr('id').replace(/row/i,'');
+                $.ajax({
+                    type: "POST",
+                    url: "/{{ var.locale }}/api/ModUser/load_edit_user_group",
+                    data: id,
+                    dataType: 'json',
+                    success: function (msg) {
+                        if(msg === "not.roll"){
+                            toastr["error"]("{{ var.lang.genel.tr.not_roll }}");
+                        }else if(msg === 'null'){
+                            toastr["error"]("{{ var.lang.genel.tr.unknown }}");
+                        }else{
+                            $('#name').val(msg.name);
+                            $('#groupId').val(msg.id);
+                        }
+                    }
+                });
+                $(".editModal").modal('show');
+            }else {
+                toastr["error"]("{{ var.lang.genel.tr.just_select_row }}");
+            }
+        }
+        else {
+            if ($('.trSelected', grid).length > 0){
+                var conf = confirm("{{ var.lang.genel.tr.sure_delete }}");
+                if (conf === true){
+                    var deteleString = '';
+                    $('.trSelected',grid).each(
+                        function() {
+                            deteleString+='&sil[]='+$(this).attr('id').replace(/row/i,'');
+                        }
+                    );
+                    // Gönder Silsin
+                    $.ajax({
+                        type: "POST",
+                        url:  "/{{ var.locale }}/api/ModUser/delete_user_group",
+                        data: deteleString,
+                        success: function(msg){
+                            if(msg === 'success.delete'){
+                                toastr["success"]("{{ var.lang.genel.tr.success_delete }}");
+                                $('#flex1').flexReload();
+                                toastr["success"]("{{ var.lang.genel.tr.refresh_list }}");
+                            }
+                        }
+                    });
+                }
+            }else{
+                toastr["error"]("{{ var.lang.genel.tr.min_select_for_delete }}");
+            }
         }
     }
 

@@ -80,7 +80,6 @@
         event.preventDefault();
         status = 'false';
         var data = {};
-        var inputList = $(this).find('input');
 
         data.nameSurname = $('#nameSurname').val();
         data.birthday    = $('#birthday').val();
@@ -98,15 +97,15 @@
                 data: data,
                 success: function (msg) {
                     if(msg === 'success.insert'){
-                        toastr["success"]("{{ var.lang.genel.tr.2 }}");
+                        toastr["success"]("{{ var.lang.genel.tr.success_insert }}");
                         $('.editModal').modal('hide');
                         $('#flex1').flexReload();
                     }else if(msg === "not.roll"){
-                        toastr["error"]("{{ var.lang.hata.12 }}");
+                        toastr["error"]("{{ var.lang.genel.tr.not_roll }}");
                     }else if(msg === 'not.username'){
                         toastr["error"]("{{ var.lang.hata.5 }}");
                     }else{
-                        toastr["error"]("{{ var.lang.genel.tr.1 }}");
+                        toastr["error"]("{{ var.lang.genel.tr.unknown }}");
                     }
                 }
             }

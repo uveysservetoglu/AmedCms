@@ -96,7 +96,7 @@ class ModUserController extends BaseController
         return new JsonResponse('success.insert');
     }
 
-    public function forEditUserAction(){
+    public function loadEditUserAction(){
         if(!$this->get('panel.user')->ifRoll('ModUser','edit')){
             return new JsonResponse('not.roll');
         }

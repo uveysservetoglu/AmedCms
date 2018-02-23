@@ -36,6 +36,7 @@ class ModUserGroupController extends BaseController
             $this->get('panel.flexi')->jsonUserGroup($data)
         );
     }
+
     public function insertAction(){
         if(!$this->get('panel.user')->ifRoll('ModUserGroup','insert')){
             return new JsonResponse('not.roll');
@@ -53,4 +54,56 @@ class ModUserGroupController extends BaseController
         $this->crudData($action);
         return new JsonResponse('success.insert');
     }
+
+    public function loadEditUserGroupAction(){
+        if(!$this->get('panel.user')->ifLogin()){
+            return new RedirectResponse($this->generateUrl('panel.login'));
+        }
+        $request = Request::createFromGlobals();
+        $repo = $this->getRepo('ApiBundle:ModUserGroup')->findOneBy([
+            'id'=>$request->get('id')[0]
+        ]);
+        $repo->getName();
+        return new JsonResponse(array('id'=>$repo->getId(), 'name'=>$repo->getName()));
+    }
+
+    public function editAction(){
+        if(!$this->get('panel.user')->ifRoll('ModUserGroup','edit')){
+            return new JsonResponse('not.roll');
+        }
+        $request = Request::createFromGlobals();
+        $editUser = $request->request;
+
+        $repo = $this->getRepo('ApiBundle:ModUserGroup')->findOneBy([
+            'id'=>$request->get('id')
+        ]);
+        if(!$repo){
+            return new JsonResponse('not.id');
+        }
+        $repo->setName($editUser->get('name'));
+        $repo->setUserId($this->session->get('authentication_data')['id']);
+
+        $action = array('action'=>'update', 'data' => $repo);
+        $this->crudData($action);
+        return new JsonResponse('success.update');
+    }
+
+    public function deleteAction(){
+        if(!$this->get('panel.user')->ifRoll('ModUserGroup','delete')){
+            return new JsonResponse('not.roll');
+        }
+
+        $request = Request::createFromGlobals();
+        $em = $this->getDoctrine()->getManager();
+        $req = $request->get('sil');
+        foreach ($req as $id){
+            $userRepo = $em->getRepository('ApiBundle:ModUserGroup')->find($id);
+            $action = array('action'=>'delete', 'data' => $userRepo);
+            $this->crudData($action);
+        }
+
+        return new JsonResponse('success.delete');
+
+    }
+
 }
