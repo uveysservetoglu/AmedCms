@@ -36,7 +36,6 @@ class ModUserGroupController extends BaseController
             $this->get('panel.flexi')->jsonUserGroup($data)
         );
     }
-
     public function insertAction(){
         if(!$this->get('panel.user')->ifRoll('ModUserGroup','insert')){
             return new JsonResponse('not.roll');

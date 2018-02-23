@@ -1,0 +1,5 @@
+services:
+    panel.flexi:
+        class: ApiBundle\Service\FlexiServices
+        arguments: ['@service_container']
+        public: true

@@ -1,0 +1,7 @@
+app.index:
+    path:     /
+    defaults: { _controller: AppBundle:Default:index }
+# api/mod_user begin
+app.jsonToExcel:
+    path:     /jsonToExcel
+    defaults: { _controller: AppBundle:Default:jsonToExcel }

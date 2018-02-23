@@ -7,5 +7,5 @@ api:
     prefix:   /{_locale}/api/
 #    schemes: [https]
 app:
-    resource: "@AppBundle/Controller/"
-    prefix:   /{_locale}/app/
+    resource: "@AppBundle/Resources/config/routing.yml"
+    prefix:   /{_locale}/
