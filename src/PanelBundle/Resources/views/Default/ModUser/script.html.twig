@@ -99,7 +99,7 @@
         }/** Update If**/
         else if (com == '{{ var.lang.genel.tr.grid.delete }}'){
             if ($('.trSelected', grid).length > 0){
-               var conf = confirm("{{ var.lang.grid.min_select_for_delete }}");
+               var conf = confirm("{{ var.lang.genel.tr.sure_delete }}");
                if (conf === true){
                    var deteleString = '';
                    $('.trSelected',grid).each(
@@ -114,15 +114,15 @@
                        data: deteleString,
                        success: function(msg){
                             if(msg === 'success.delete'){
-                                toastr["success"]("{{ var.lang.grid.19 }}");
+                                toastr["success"]("{{ var.lang.genel.tr.success_delete }}");
                                 $('#flex1').flexReload();
-                                toastr["success"]("{{ var.lang.grid.18 }}");
+                                toastr["success"]("{{ var.lang.genel.tr.refresh_list }}");
                             }
                        }
                    });
                }
             }else{
-                toastr["error"]("{{ var.lang.grid.16 }}");
+                toastr["error"]("{{ var.lang.genel.tr.min_select_for_delete }}");
             }
         }/** Delete If**/
         else if (com == '{{ var.lang.genel.tr.grid.active }}'){
@@ -143,15 +143,15 @@
                        data: active+varStatus,
                        success: function(msg){
                             if(msg === 'success.active'){
-                                toastr["success"]("{{ var.lang.grid.27 }}");
+                                toastr["success"]("{{ var.lang.genel.tr.success_active }}");
                                 $('#flex1').flexReload();
-                                toastr["success"]("{{ var.lang.grid.18 }}");
+                                toastr["success"]("{{ var.lang.genel.tr.refresh_list }}");
                             }
                        }
                    });
                }
             }else{
-                toastr["error"]("{{ var.lang.grid.16 }}");
+                toastr["error"]("{{ var.lang.genel.tr.min_select_for_delete }}");
             }
         }/** Active If**/
         else if (com == '{{ var.lang.genel.tr.grid.pasivve }}'){
@@ -172,15 +172,15 @@
                        data: active+varStatus,
                        success: function(msg){
                             if(msg === 'success.active'){
-                                toastr["success"]("{{ var.lang.grid.30 }}");
+                                toastr["success"]("{{ var.lang.genel.tr.success_pasivve }}");
                                 $('#flex1').flexReload();
-                                toastr["success"]("{{ var.lang.grid.18 }}");
+                                toastr["success"]("{{ var.lang.genel.tr.refresh_list }}");
                             }
                        }
                    });
                }
             }else{
-                toastr["error"]("{{ var.lang.grid.16 }}");
+                toastr["error"]("{{ var.lang.genel.tr.min_select_for_delete }}");
             }
         }/** DeActive If**/
     }

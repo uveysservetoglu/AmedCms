@@ -423,6 +423,8 @@ Dilerseniz Artık Kullanıcı Adı Ve Şifrenizle Giriş Yapabilirsiniz.'
                 'success_insert'         =>'Ekleme Islemi Tamamlandi',
                 'success_update'         =>'Güncelleme Islemi Tamamlandi',
                 'success_delete'         =>'Silme Islemi Tamamlandi',
+                'success_active'         =>'Seçili Satırlar Aktif Edildi.',
+                'success_pasivve'        =>'Seçili Satırlar Pasif Edildi.',
                 'sure_delete'            =>'Silmek Istediğinize Emin misiniz?',
                 'refresh_list'           =>'Liste Yenilendi',
                 'yes'                    =>'Evet',

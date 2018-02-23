@@ -92,7 +92,6 @@ class ModUserGroupController extends BaseController
         if(!$this->get('panel.user')->ifRoll('ModUserGroup','delete')){
             return new JsonResponse('not.roll');
         }
-
         $request = Request::createFromGlobals();
         $em = $this->getDoctrine()->getManager();
         $req = $request->get('sil');
@@ -101,9 +100,7 @@ class ModUserGroupController extends BaseController
             $action = array('action'=>'delete', 'data' => $userRepo);
             $this->crudData($action);
         }
-
         return new JsonResponse('success.delete');
-
     }
 
 }

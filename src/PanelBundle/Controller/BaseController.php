@@ -98,16 +98,15 @@ class BaseController extends Controller
         $this->var['js'] = $src;
     }
     private function panelMenu(){
-        $menu =
-            array(
+        $menu =array(
+            'tr' => array(
                 array(
-                    'name'  => 'User Control',
+                    'name'  => 'Üyelik Işlemleri',
                     'icon'  => 'fa fa-user',
                     'item'  => array(
-                        1   => array('href'=>'panel/mod_user/user_list','name'=>'User Lists'),
-                        2   => array('href'=>'panel/mod_user/member_setting','name'=>'Member Setting'),
-                        3   => array('href'=>'panel/mod_user_group/group_list','name'=>'User Group'),
-                        4   => array('href'=>'panel/mod_user/user_roll','name'=>'User Roll')
+                        1   => array('href'=>'panel/mod_user/user_list','name'=>'Üye Listesi'),
+                        3   => array('href'=>'panel/mod_user_group/group_list','name'=>'Üye Grupları'),
+                        4   => array('href'=>'panel/mod_user/user_roll','name'=>'Üye Yetkileri')
                     )
                 ),
                 array(
@@ -121,8 +120,9 @@ class BaseController extends Controller
                         4   => array('href'=>'mod_user/user_roll','name'=>'User Rolle')
                     )
                 )
-            );
+            )
+        );
 
-        $this->var['menu'] = $menu;
+        $this->var['menu'] = $menu[$this->var['locale']];
     }
 }
