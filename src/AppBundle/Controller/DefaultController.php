@@ -19,14 +19,13 @@ class DefaultController extends Controller
 
     }
 
-    public function jsonToExcelAction(){
-        if (!file_exists("work/prod.json")) {
+    public function jsonToExcelAction(Request $request){
+        if (!file_exists("work/{$request}.json")) {
             throw new \Exception("Geçersiz dosya.");
         }
-        $fileContents = file_get_contents("work/prod.json");
+        $fileContents  = file_get_contents("work/prod.json");
         $decodeContent = json_decode($fileContents, true);
-        $collection = array();
-        $spreadsheet = new Spreadsheet();
+        $spreadsheet   = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->setCellValue('A1', 'Durumu')
               ->setCellValue('B1', 'Stok Numarasi')
@@ -34,22 +33,22 @@ class DefaultController extends Controller
               ->setCellValue('D1', 'Urun Adi')
               ->setCellValue('E1', 'Paket İçi Adet')
               ->setCellValue('F1', 'Koli İçerisindeki Paket Sayısı');
-        $loop =2;
-        foreach ($decodeContent ['RECORDS'] as $item){
-              $extra_info = json_decode($item['Extra Info']);
-              $packagingType = null;
-              switch ($extra_info->packagingType){
-                  case 'p': $packagingType = 'Paket'; break;
-                  case 'a': $packagingType = 'Adet'; break;
-                  case 'k': $packagingType = 'Koli'; break;
-              }
-              $status = null;
-              switch ($item['Durumu']){
-                  case 'a': $status = 'Aktif'; break;
-                  case 'i': $status = 'Aktif Degil'; break;
-                  case 'p': $status = 'On Siparis'; break;
-                  case 'o': $status = 'Stokta Tukendi'; break;
-              }
+        $loop = 2;
+        foreach($decodeContent ['RECORDS'] as $item){
+            $extra_info = json_decode($item['Extra Info']);
+            $packagingType = null;
+            switch ($extra_info->packagingType){
+                case 'p': $packagingType = 'Paket'; break;
+                case 'a': $packagingType = 'Adet'; break;
+                case 'k': $packagingType = 'Koli'; break;
+            }
+            $status = null;
+            switch ($item['Durumu']){
+                case 'a': $status = 'Aktif'; break;
+                case 'i': $status = 'Aktif Degil'; break;
+                case 'p': $status = 'On Siparis'; break;
+                case 'o': $status = 'Stokta Tukendi'; break;
+            }
             $sheet->setCellValue('A'.$loop , $status)
                   ->setCellValue('B'.$loop , $item['Stok Numarasi'])
                   ->setCellValue('C'.$loop , $packagingType)
