@@ -33,9 +33,16 @@ class LocaleService
         $pathTrim    = explode('/' , $pathInfo);
 
         if($languages[array_search($pathTrim[0], $languages)] !== $pathTrim[0]){
-            $uri = $httpReq[0].'//'.$site.'/'.$locale .'/'.$pathInfo;
-            echo '<script type="text/javascript">window.location = "'.$uri.'";</script>';
-            die;
+            $web = explode('/', $pathInfo);
+            if($web[0] !='theme')
+            {
+                $uri = $httpReq[0] . '//' . $site . '/' . $locale . '/' . $pathInfo;
+                $src = '<script>';
+                $src .= 'window.location = "' . $uri . '";';
+                $src .= '</script>';
+                echo $src;
+                die;
+            }
         }
     }
 

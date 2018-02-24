@@ -126,7 +126,7 @@ class AuthController extends BaseController
         }
         return $currentXssCode;
     }
-    public function isValidXss(string $xssCode){
+    public function isValidXss($xssCode){
         $savedXssCode = $this->session->get('_xss');
         if($savedXssCode === $xssCode){
             return true;
