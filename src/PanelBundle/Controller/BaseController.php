@@ -19,6 +19,7 @@ class BaseController extends Controller
     public $var;
     public $em;
     public $local;
+    public $rootDir;
     public $langService;
     public $userService;
     public $currentPage;
@@ -28,12 +29,14 @@ class BaseController extends Controller
     public function __construct(){
         $this->session = new Session();
         $this->var['title'] = 'Biber İçerik Yönetim Sistemi';
+
     }
     public function init($page=null,$mod = null){
         $this->var['error']= array(
             'status'  => false,
             'message' => null
         );
+        $this->rootDir = 'amedcms.dev';
         $this->currentPage = $page;
         $this->currentDirectory = $mod;
         $this->var['locale'] = $this->get('translator')->getLocale();
@@ -52,33 +55,33 @@ class BaseController extends Controller
 
     private function generateCssAndJs(){
         /** JS Include **/
-        $this->var['css'][]   = "/web/theme/panel/bootstrap/dist/css/bootstrap.min.css" ;
-        $this->var['css'][]   = "/web/theme/panel/font-awesome/css/font-awesome.min.css";
-        $this->var['css'][]   = "/web/theme/panel/build/css/custom.min.css";
-        $this->var['css'][]   = "/web/theme/panel/style.css";
+        $this->var['css'][]   = "/theme/panel/bootstrap/dist/css/bootstrap.min.css" ;
+        $this->var['css'][]   = "/theme/panel/font-awesome/css/font-awesome.min.css";
+        $this->var['css'][]   = "/theme/panel/build/css/custom.min.css";
+        $this->var['css'][]   = "/theme/panel/style.css";
 
         /** JS Include **/
-        $this->var['js'][]    = "/web/theme/panel/jquery/dist/jquery.min.js" ;
-        $this->var['js'][]    = "/web/theme/panel/bootstrap/dist/js/bootstrap.min.js";
-        $this->var['js'][]    = "/web/theme/panel/bootstrap/dist/js/bootstrap-confirmation.min.js";
+        $this->var['js'][]    = "/theme/panel/jquery/dist/jquery.min.js" ;
+        $this->var['js'][]    = "/theme/panel/bootstrap/dist/js/bootstrap.min.js";
+        $this->var['js'][]    = "/theme/panel/bootstrap/dist/js/bootstrap-confirmation.min.js";
 
         switch ($this->currentPage){
             case 'userList':
-                $this->var['css'][]    = "/web/theme/panel/flexigrid/css/flexigrid/flexigrid.css" ;
-                $this->var['css'][]    = "/web/theme/panel/toastr/toastr.min.css" ;
+                $this->var['css'][]    ="/theme/panel/flexigrid/css/flexigrid/flexigrid.css" ;
+                $this->var['css'][]    = "/theme/panel/toastr/toastr.min.css" ;
 
-                $this->var['js'][]    = "/web/theme/panel/flexigrid/flexigrid.js" ;
-                $this->var['js'][]    = "/web/theme/panel/toastr/toastr.min.js" ;
+                $this->var['js'][]    = "/theme/panel/flexigrid/flexigrid.js" ;
+                $this->var['js'][]    = "/theme/panel/toastr/toastr.min.js" ;
                 break;
             case 'userGroupList';
-                $this->var['css'][]    = "/web/theme/panel/flexigrid/css/flexigrid/flexigrid.css" ;
-                $this->var['css'][]    = "/web/theme/panel/toastr/toastr.min.css" ;
+                $this->var['css'][]    = "/theme/panel/flexigrid/css/flexigrid/flexigrid.css" ;
+                $this->var['css'][]    = "/theme/panel/toastr/toastr.min.css" ;
 
-                $this->var['js'][]    = "/web/theme/panel/flexigrid/flexigrid.js" ;
-                $this->var['js'][]    = "/web/theme/panel/toastr/toastr.min.js" ;
+                $this->var['js'][]    = "/theme/panel/flexigrid/flexigrid.js" ;
+                $this->var['js'][]    = "/theme/panel/toastr/toastr.min.js" ;
                 break;
         }
-        $this->var['js'][]    = "/web/theme/panel/build/js/custom.min.js";
+        $this->var['js'][]    = "/theme/panel/build/js/custom.min.js";
 
         $this->scriptSrc($this->var['js']);
         $this->linkStyleSheet($this->var['css']);
