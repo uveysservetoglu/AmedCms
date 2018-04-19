@@ -30,6 +30,56 @@
 
 {% include '@Panel/Default/ModUser/editModal.html.twig' %}
 {% include '@Panel/Default/ModUser/insertModal.html.twig' %}
+{#https://codepen.io/html5andblog/pen/NNmJmp#}
+<video id="video" width="640" height="480" autoplay></video>
+<button id="snap">Snap Photo</button>
+<canvas id="canvas" width="640" height="480"></canvas>
 
+<script>
+    var video = document.getElementById('video');
 
+    // Get access to the camera!
+    if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        // Not adding `{ audio: true }` since we only want video now
+        navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+            video.src = window.URL.createObjectURL(stream);
+            video.play();
+        });
+    }
+
+    var canvas = document.getElementById('canvas');
+    var context = canvas.getContext('2d');
+    var video = document.getElementById('video');
+
+    // Trigger photo take
+    document.getElementById("snap").addEventListener("click", function() {
+        context.drawImage(video, 0, 0, 640, 480);
+    });
+</script>
 <!-- /page content -->
+{#
+<script src='//cdnjs.cloudflare.com/ajax/libs/signature_pad/1.5.3/signature_pad.min.js'></script>
+<canvas id="signature" width="450" height="150" style="border: 1px solid #ddd;"></canvas>
+<br>
+<button id="clear-signature">Clear</button>
+<button id="save-signature">save</button>
+
+<script>
+    jQuery(document).ready(function($){
+
+        var canvas = document.getElementById("signature");
+        var signaturePad = new SignaturePad(canvas);
+
+        $('#clear-signature').on('click', function(){
+            signaturePad.clear();
+        });
+        $('#save-signature').on('click', function(){
+
+            var img    = canvas.toDataURL("image/png;base64;");
+            window.open(img,"","width=700,height=700");
+
+
+        });
+
+    });
+</script>#}

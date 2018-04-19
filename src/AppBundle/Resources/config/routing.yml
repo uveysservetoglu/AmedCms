@@ -5,3 +5,10 @@ app.index:
 app.jsonToExcel:
     path:     /jsonToExcel
     defaults: { _controller: AppBundle:Default:jsonToExcel }
+app.crawler:
+    path:     /crawler
+    defaults: { _controller: AppBundle:Default:crawler }
+
+app.memberJson:
+    path:     /memberJson
+    defaults: { _controller: AppBundle:Default:memberJson }

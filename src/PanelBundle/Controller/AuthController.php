@@ -89,7 +89,6 @@ class AuthController extends BaseController
                 $msg = $this->var['lang']['error.username'];
             }
         }else{
-
             $msg = $this->var['lang']['please_login'];
         }
         return $msg;
